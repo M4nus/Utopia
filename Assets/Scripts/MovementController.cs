@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {                      
-    float _moveSpeed;       
+    float _moveSpeed;    
 
     void Start()
     {
@@ -23,10 +23,11 @@ public class MovementController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 180, 0); // Flipped      
             Move();
         } 
+
     }
 
     void Move()
     {
-        gameObject.transform.Translate(new Vector2(-_moveSpeed * Time.deltaTime, 0));   
+        gameObject.transform.Translate(new Vector2(-_moveSpeed * Time.deltaTime, 0));       
     }
 }

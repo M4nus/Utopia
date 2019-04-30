@@ -1,4 +1,5 @@
-﻿using UnityEngine;                   
+﻿using UnityEngine;    
+
 
 public class DoorMechanism : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class DoorMechanism : MonoBehaviour
         {                               
             if(Input.GetKeyDown(KeyCode.E))
             {
-                StartCoroutine(_sm.MoveCamera("x", 5.5f));  
+                StartCoroutine(_sm.MoveCamera("x", 5.5f));             
             }
         }
     }
