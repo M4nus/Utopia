@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4279732917955810}
   - component: {fileID: 50223123969455496}
   - component: {fileID: 61687999332268450}
+  - component: {fileID: 826017301}
   m_Layer: 8
   m_Name: '[ANTONI]'
   m_TagString: Untagged
@@ -159,3 +160,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.27298096, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &826017301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864141802420488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a848530deaa325645bf27b1e98cac029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

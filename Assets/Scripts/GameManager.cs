@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         ySign = 1;
         collumns = 3;
         rows = 3;
-        actScene = SceneManager.GetActiveScene().buildIndex;
+        actScene = SceneManager.GetActiveScene().buildIndex + 1;
         _player.transform.position = lastPos;
 	}   
 
@@ -44,19 +44,21 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int index)
     {
-        SceneManager.LoadScene(index);
+        //Scene numeration starts from 1, that's why there is offset which caused the problem with boundaries. We give (index - 1) 
+        //as a parameter, just to remove that problem.
+        SceneManager.LoadScene(index - 1);
         _player.SetActive(true);
     }
 
     public void CheckBoundaries()
-    {
+    {                                      
         if((actScene % rows == 1) && (xSign == -1))        // Left boundary
             xSign = 1;
         if((actScene % rows == 0) && (xSign == 1))    // Right boundary
             xSign = -1;
-        if((actScene < 4) && (ySign == -1))        // Bottom boundary
+        if((actScene <= collumns) && (ySign == -1))        // Bottom boundary
             ySign = 1;
-        if((actScene > 6) && (xSign == 1))         // Top boundary
+        if((actScene > (collumns * rows - collumns)) && (ySign == 1))         // Top boundary
             ySign = -1;
     }
 
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
         xSign = (Random.Range(0, 2) % 2 == 0) ? -1 : 1;
         ySign = (Random.Range(0, 2) % 2 == 0) ? -1 : 1;
         CheckBoundaries();                                              // Checking boundaries
-        sceneOffset = (axis == "x") ? 1 * xSign : 3 * ySign;    // If left/right then scene by 1 
+        sceneOffset = (axis == "x") ? 1 * xSign : collumns * ySign;    // If left/right then scene by 1 
         // Setting next pos whether I used eleator or corridor
         lastPos = (axis == "x") ? new Vector2(-2.16f, _player.transform.position.y)
                                 : new Vector2(-1f, _player.transform.position.y);
