@@ -44,9 +44,8 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int index)
     {
-        //Scene numeration starts from 1, that's why there is offset which caused the problem with boundaries. We give (index - 1) 
-        //as a parameter, just to remove that problem.
-        SceneManager.LoadScene(index - 1);
+        //SCENE NUMBERTION HAS BEEN FIXED
+        SceneManager.LoadScene(index);
         _player.SetActive(true);
     }
 
