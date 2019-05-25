@@ -40,23 +40,25 @@ public class MapGeneratorScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            LoadScene(currentRoomGrid[4].roomIndex); //Load scene from RoomInstance at middle position (index 4)
+            LoadPlayerIntoMap();
+
         }
         if (Input.GetKeyDown(KeyCode.U))//Go up one room
         {
-            LoadScene(currentRoomGrid[7].roomIndex); //Load scene from RoomInstance at top position (index 7)
+            ChangeRoomToUp();
+
         }
         if (Input.GetKeyDown(KeyCode.J))//Go down one room
         {
-            LoadScene(currentRoomGrid[1].roomIndex); //Load scene from RoomInstance at down position (index 1)
+            ChangeRoomToDown();
         }
         if (Input.GetKeyDown(KeyCode.H))//Go left one room
         {
-            LoadScene(currentRoomGrid[3].roomIndex); //Load scene from RoomInstance at left position (index 3)
+            ChangeRoomToLeft();
         }
         if (Input.GetKeyDown(KeyCode.K))//Go right one room
         {
-            LoadScene(currentRoomGrid[5].roomIndex); //Load scene from RoomInstance at right position (index 5)
+            ChangeRoomToRight();
         }
 
 
@@ -98,5 +100,85 @@ public class MapGeneratorScript : MonoBehaviour
             return;
         }
         SceneManager.LoadScene(gridIndex);
+    }
+
+    void LoadPlayerIntoMap()
+    {
+        LoadScene(currentRoomGrid[4].roomIndex); //Load scene from RoomInstance at middle position (index 4)
+    }
+
+    void ChangeRoomToLeft()
+    {
+        LoadScene(currentRoomGrid[3].roomIndex); //Load scene from RoomInstance at left position (index 3)
+        UnloadScene(8);
+        UnloadScene(5);
+        UnloadScene(2);
+        currentRoomGrid[6] = currentRoomGrid[7];
+        currentRoomGrid[3] = currentRoomGrid[4];
+        currentRoomGrid[0] = currentRoomGrid[1];
+        currentRoomGrid[7] = currentRoomGrid[8];
+        currentRoomGrid[4] = currentRoomGrid[5];
+        currentRoomGrid[1] = currentRoomGrid[2];
+    }
+
+    void ChangeRoomToRight()
+    {
+        LoadScene(currentRoomGrid[5].roomIndex); //Load scene from RoomInstance at right position (index 5)
+        UnloadScene(6);
+        UnloadScene(3);
+        UnloadScene(0);
+        currentRoomGrid[8] = currentRoomGrid[7];
+        currentRoomGrid[5] = currentRoomGrid[4];
+        currentRoomGrid[2] = currentRoomGrid[1];
+        currentRoomGrid[7] = currentRoomGrid[6];
+        currentRoomGrid[4] = currentRoomGrid[3];
+        currentRoomGrid[1] = currentRoomGrid[0];
+    }
+
+    void ChangeRoomToUp()
+    {
+        LoadScene(currentRoomGrid[7].roomIndex); //Load scene from RoomInstance at top position (index 7)
+        UnloadScene(0);
+        UnloadScene(1);
+        UnloadScene(2);
+        currentRoomGrid[6] = currentRoomGrid[3];
+        currentRoomGrid[7] = currentRoomGrid[4];
+        currentRoomGrid[8] = currentRoomGrid[5];
+        currentRoomGrid[3] = currentRoomGrid[0];
+        currentRoomGrid[4] = currentRoomGrid[1];
+        currentRoomGrid[5] = currentRoomGrid[2];
+    }
+
+    void ChangeRoomToDown()
+    {
+        LoadScene(currentRoomGrid[1].roomIndex); //Load scene from RoomInstance at down position (index 1)
+        UnloadScene(6);
+        UnloadScene(7);
+        UnloadScene(8);
+        currentRoomGrid[0] = currentRoomGrid[3];
+        currentRoomGrid[1] = currentRoomGrid[4];
+        currentRoomGrid[2] = currentRoomGrid[5];
+        currentRoomGrid[3] = currentRoomGrid[6];
+        currentRoomGrid[4] = currentRoomGrid[7];
+        currentRoomGrid[5] = currentRoomGrid[8];
+    }
+
+    void UnloadScene(int index)
+    {
+        if(index < 0 || index > 8)
+        {
+            Debug.Log("Something tried to unload scene with bad index: Index" + index);
+        }
+        RoomInstance SceneToUnload = currentRoomGrid[index];
+        currentRoomGrid.RemoveAt(index);
+
+        if (SceneToUnload.isVisited == true)
+        {
+            visitedRooms.Add(SceneToUnload);
+        }
+        else
+        {
+            currentRoomGrid.RemoveAt(index);
+        }
     }
 }
