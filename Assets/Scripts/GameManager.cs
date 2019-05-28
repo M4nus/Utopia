@@ -7,24 +7,38 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] Transform _camera;
     [SerializeField] GameObject _player;
-
+    [SerializeField] MapGeneratorScript _mapGeneratorScript;
     int xSign;
     int ySign;
+    private Vector3[] _SpritePositions = new Vector3[] { new Vector3(-5.5f,-3,0), new Vector3(0,-3,0), new Vector3(5.5f,-3,0), new Vector3(-5.5f,0,0),
+                                           new Vector3(0,0,0),  new Vector3(5.5f,0,0), new Vector3(-5.5f,3,0), new Vector3(0,3,0), new Vector3(5.5f,3,0)};
     public int actScene;   
     public int sceneOffset;
     public int collumns;
     public int rows;
     static public Vector2 lastPos = new Vector2(0, -0.89f);
-                                                  
+
+    void GenerateRoomSprites()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (i == 4) { continue; }
+            Debug.Log("RoomSprites/OneRoom/Room" + _mapGeneratorScript.currentRoomGrid[i].roomIndex);
+            Instantiate(_mapGeneratorScript.RoomSprites[i], _SpritePositions[i], Quaternion.identity);
+        }
+    }
 
     void Start ()
     {
+        //GenerateRoomSprites();
         xSign = 1;
         ySign = 1;
         collumns = 3;
         rows = 3;
         actScene = SceneManager.GetActiveScene().buildIndex + 1;
         _player.transform.position = lastPos;
+        _mapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGeneratorScript>();
+        GenerateRoomSprites();
 	}   
 
     public IEnumerator MoveCamera(string axis, float distToMove)
