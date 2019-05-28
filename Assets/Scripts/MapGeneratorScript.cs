@@ -7,13 +7,24 @@ using UnityEngine.SceneManagement;
 
 public class MapGeneratorScript : MonoBehaviour
 {
+    [SerializeField] Transform _camera;
+    [SerializeField] Transform _player;
     public List<RoomInstance> unvisitedRooms = new List<RoomInstance>();
     public List<RoomInstance> visitedRooms = new List<RoomInstance>();
     public List<RoomInstance> currentRoomGrid = new List<RoomInstance>();
+   [SerializeField] public GameObject []RoomSprites = new GameObject[9];
     public int unvisitedRoomsNumber;
     public int visitedRoomsNumber;
     public int currentRoomGridNumber;
-
+    public int room0;
+    public int room1;
+    public int room2;
+    public int room3;
+    public int room4;
+    public int room5;
+    public int room6;
+    public int room7;
+    public int room8;
     public struct RoomInstance
     {
         public RoomInstance(int roomIndex)
@@ -38,6 +49,17 @@ public class MapGeneratorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        room0 = currentRoomGrid[0].roomIndex;
+        room1 = currentRoomGrid[1].roomIndex;
+        room2 = currentRoomGrid[2].roomIndex;
+        room3 = currentRoomGrid[3].roomIndex;
+        room4 = currentRoomGrid[4].roomIndex;
+        room5 = currentRoomGrid[5].roomIndex;
+        room6 = currentRoomGrid[6].roomIndex;
+        room7 = currentRoomGrid[7].roomIndex;
+        room8 = currentRoomGrid[8].roomIndex;
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        _player = GameObject.Find("[ANTONI]").transform;
         if (Input.GetKeyDown(KeyCode.P))
         {
             LoadPlayerIntoMap();
@@ -105,62 +127,88 @@ public class MapGeneratorScript : MonoBehaviour
     void LoadPlayerIntoMap()
     {
         LoadScene(currentRoomGrid[4].roomIndex); //Load scene from RoomInstance at middle position (index 4)
+        LoadRoomSprites();
+
     }
 
     void ChangeRoomToLeft()
     {
-        LoadScene(currentRoomGrid[3].roomIndex); //Load scene from RoomInstance at left position (index 3)
+        SaveCurrentRoom();
+        StartCoroutine(MoveCameraToNextScene("x", -1, 5.5f, 3)); //Load scene from RoomInstance at left position (index 3)
         UnloadScene(8);
         UnloadScene(5);
         UnloadScene(2);
-        currentRoomGrid[6] = currentRoomGrid[7];
-        currentRoomGrid[3] = currentRoomGrid[4];
-        currentRoomGrid[0] = currentRoomGrid[1];
-        currentRoomGrid[7] = currentRoomGrid[8];
-        currentRoomGrid[4] = currentRoomGrid[5];
-        currentRoomGrid[1] = currentRoomGrid[2];
-    }
-
-    void ChangeRoomToRight()
-    {
-        LoadScene(currentRoomGrid[5].roomIndex); //Load scene from RoomInstance at right position (index 5)
-        UnloadScene(6);
-        UnloadScene(3);
-        UnloadScene(0);
         currentRoomGrid[8] = currentRoomGrid[7];
         currentRoomGrid[5] = currentRoomGrid[4];
         currentRoomGrid[2] = currentRoomGrid[1];
         currentRoomGrid[7] = currentRoomGrid[6];
         currentRoomGrid[4] = currentRoomGrid[3];
         currentRoomGrid[1] = currentRoomGrid[0];
+        for(int i = 0; i < 7; i+=3)
+        {
+            currentRoomGrid[i] = GetRoomInstanceToLoad();
+        }
+        LoadRoomSprites();
+    }
+
+    void ChangeRoomToRight()
+    {
+        SaveCurrentRoom();
+        StartCoroutine(MoveCameraToNextScene("x", 1, 5.5f, 5)); //Load scene from RoomInstance at right position (index 5)
+        UnloadScene(0);
+        UnloadScene(3);
+        UnloadScene(6);
+        currentRoomGrid[0] = currentRoomGrid[1];
+        currentRoomGrid[3] = currentRoomGrid[4];
+        currentRoomGrid[6] = currentRoomGrid[7];
+        currentRoomGrid[1] = currentRoomGrid[2];
+        currentRoomGrid[4] = currentRoomGrid[5];
+        currentRoomGrid[7] = currentRoomGrid[8];
+        for (int i = 2; i < 9; i += 3)
+        {
+            currentRoomGrid[i] = GetRoomInstanceToLoad();
+        }
+        LoadRoomSprites();
     }
 
     void ChangeRoomToUp()
     {
-        LoadScene(currentRoomGrid[7].roomIndex); //Load scene from RoomInstance at top position (index 7)
+        SaveCurrentRoom();
+        StartCoroutine(MoveCameraToNextScene("y", 1, 5.5f, 7)); //Load scene from RoomInstance at top position (index 7)
         UnloadScene(0);
         UnloadScene(1);
         UnloadScene(2);
-        currentRoomGrid[6] = currentRoomGrid[3];
-        currentRoomGrid[7] = currentRoomGrid[4];
-        currentRoomGrid[8] = currentRoomGrid[5];
-        currentRoomGrid[3] = currentRoomGrid[0];
-        currentRoomGrid[4] = currentRoomGrid[1];
-        currentRoomGrid[5] = currentRoomGrid[2];
-    }
-
-    void ChangeRoomToDown()
-    {
-        LoadScene(currentRoomGrid[1].roomIndex); //Load scene from RoomInstance at down position (index 1)
-        UnloadScene(6);
-        UnloadScene(7);
-        UnloadScene(8);
         currentRoomGrid[0] = currentRoomGrid[3];
         currentRoomGrid[1] = currentRoomGrid[4];
         currentRoomGrid[2] = currentRoomGrid[5];
         currentRoomGrid[3] = currentRoomGrid[6];
         currentRoomGrid[4] = currentRoomGrid[7];
         currentRoomGrid[5] = currentRoomGrid[8];
+        for (int i = 6; i < 9; i += 1)
+        {
+            currentRoomGrid[i] = GetRoomInstanceToLoad();
+        }
+        LoadRoomSprites();
+    }
+
+    void ChangeRoomToDown()
+    {
+        SaveCurrentRoom();
+        StartCoroutine(MoveCameraToNextScene("y", -1, 5.5f, 1)); //Load scene from RoomInstance at down position (index 1)
+        UnloadScene(6);
+        UnloadScene(7);
+        UnloadScene(8);
+        currentRoomGrid[6] = currentRoomGrid[3];
+        currentRoomGrid[7] = currentRoomGrid[4];
+        currentRoomGrid[8] = currentRoomGrid[5];
+        currentRoomGrid[3] = currentRoomGrid[0];
+        currentRoomGrid[4] = currentRoomGrid[1];
+        currentRoomGrid[5] = currentRoomGrid[2];
+        for (int i = 0; i < 3; i += 1)
+        {
+            currentRoomGrid[i] = GetRoomInstanceToLoad();
+        }
+        LoadRoomSprites();
     }
 
     void UnloadScene(int index)
@@ -170,7 +218,6 @@ public class MapGeneratorScript : MonoBehaviour
             Debug.Log("Something tried to unload scene with bad index: Index" + index);
         }
         RoomInstance SceneToUnload = currentRoomGrid[index];
-        currentRoomGrid.RemoveAt(index);
 
         if (SceneToUnload.isVisited == true)
         {
@@ -178,7 +225,76 @@ public class MapGeneratorScript : MonoBehaviour
         }
         else
         {
-            currentRoomGrid.RemoveAt(index);
+            unvisitedRooms.Add(SceneToUnload);
         }
     }
+
+    RoomInstance GetRoomInstanceToLoad()
+    {
+        RoomInstance roomInstance;
+        if (unvisitedRooms.Count > 0)
+        {
+            int choosenRoomIndex = (int)Random.Range(0, unvisitedRooms.Count - 1);
+            roomInstance = unvisitedRooms[choosenRoomIndex];
+            unvisitedRooms.RemoveAt(choosenRoomIndex);
+        }
+        else if (visitedRooms.Count > 0)
+        {
+            int choosenRoomIndex = (int)Random.Range(0, visitedRooms.Count - 1);
+            roomInstance = visitedRooms[choosenRoomIndex];
+            visitedRooms.RemoveAt(choosenRoomIndex);
+        }
+        else
+        {
+            Debug.Log("There are no more room instances to load");
+            roomInstance = new RoomInstance(0);
+        }
+        return roomInstance;
+    }
+
+    void SaveCurrentRoom()
+    {
+        RoomInstance tempRoomInstance = currentRoomGrid[4];
+        tempRoomInstance.isVisited = true;
+        tempRoomInstance.roomStateDescription = "RoomHasBeenVisited";
+        currentRoomGrid[4] = tempRoomInstance;
+    }
+
+    public IEnumerator MoveCameraToNextScene(string axis,int sign, float distToMove, int nextSceneIndex)
+    {
+        float pos = 0; // Camera move increaser  
+      
+        if(axis == "x")
+        {
+            distToMove = 5.5f;
+        }
+        else
+        {
+            distToMove = 3f;
+        }
+        while (distToMove > Mathf.Abs(pos))
+        {
+            Vector3 move = (axis == "x") ? new Vector3(sign * pos, 0f, -5f) : new Vector3(0f, sign * pos, -5f);
+            _camera.position = move;
+            pos += Time.deltaTime;
+            yield return null;
+        }
+        LoadScene(currentRoomGrid[nextSceneIndex].roomIndex);
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
+    }
+    void LoadRoomSprites()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (i == 4) { continue; }
+            RoomSprites[i] = Resources.Load<GameObject>("RoomSprites/OneRoom/Room" + currentRoomGrid[i].roomIndex);
+
+        }
+    }
+
+
+
+
+
 }
