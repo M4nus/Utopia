@@ -43,7 +43,9 @@ public class MapGeneratorScript : MonoBehaviour
         Object.DontDestroyOnLoad(this.gameObject);
         InitStartingRoomSetup(); //Make RoomInstacnes according to the anount of Rooms in assets
         ChooseStartingGrid();//Choose 9 random rooms to make starting location
-        
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        _player = GameObject.Find("[ANTONI]").transform;
+
     }
 
     // Update is called once per frame
@@ -58,8 +60,6 @@ public class MapGeneratorScript : MonoBehaviour
         room6 = currentRoomGrid[6].roomIndex;
         room7 = currentRoomGrid[7].roomIndex;
         room8 = currentRoomGrid[8].roomIndex;
-        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        _player = GameObject.Find("[ANTONI]").transform;
         if (Input.GetKeyDown(KeyCode.P))
         {
             LoadPlayerIntoMap();
@@ -82,7 +82,12 @@ public class MapGeneratorScript : MonoBehaviour
         {
             ChangeRoomToRight();
         }
-
+        if (_camera == null || _player == null)
+        {
+            _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            _player = GameObject.Find("[ANTONI]").transform;
+        }
+        
 
         unvisitedRoomsNumber = unvisitedRooms.Count;
         visitedRoomsNumber = visitedRooms.Count;
@@ -128,6 +133,8 @@ public class MapGeneratorScript : MonoBehaviour
     {
         LoadScene(currentRoomGrid[4].roomIndex); //Load scene from RoomInstance at middle position (index 4)
         LoadRoomSprites();
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        _player = GameObject.Find("[ANTONI]").transform;
 
     }
 
@@ -135,6 +142,9 @@ public class MapGeneratorScript : MonoBehaviour
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("x", -1, 5.5f, 3)); //Load scene from RoomInstance at left position (index 3)
+    }
+    void ChangeGridLeft()
+    {
         UnloadScene(8);
         UnloadScene(5);
         UnloadScene(2);
@@ -144,17 +154,20 @@ public class MapGeneratorScript : MonoBehaviour
         currentRoomGrid[7] = currentRoomGrid[6];
         currentRoomGrid[4] = currentRoomGrid[3];
         currentRoomGrid[1] = currentRoomGrid[0];
-        for(int i = 0; i < 7; i+=3)
+        for (int i = 0; i < 7; i += 3)
         {
             currentRoomGrid[i] = GetRoomInstanceToLoad();
         }
         LoadRoomSprites();
     }
 
-    void ChangeRoomToRight()
+        void ChangeRoomToRight()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("x", 1, 5.5f, 5)); //Load scene from RoomInstance at right position (index 5)
+    }
+    void ChangeGridRight()
+    {
         UnloadScene(0);
         UnloadScene(3);
         UnloadScene(6);
@@ -171,10 +184,13 @@ public class MapGeneratorScript : MonoBehaviour
         LoadRoomSprites();
     }
 
-    void ChangeRoomToUp()
+        void ChangeRoomToUp()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("y", 1, 5.5f, 7)); //Load scene from RoomInstance at top position (index 7)
+    }
+    void ChangeGridUp()
+    {
         UnloadScene(0);
         UnloadScene(1);
         UnloadScene(2);
@@ -191,10 +207,13 @@ public class MapGeneratorScript : MonoBehaviour
         LoadRoomSprites();
     }
 
-    void ChangeRoomToDown()
+        void ChangeRoomToDown()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("y", -1, 5.5f, 1)); //Load scene from RoomInstance at down position (index 1)
+    }
+    void ChangeGridDown()
+    {
         UnloadScene(6);
         UnloadScene(7);
         UnloadScene(8);
@@ -210,7 +229,6 @@ public class MapGeneratorScript : MonoBehaviour
         }
         LoadRoomSprites();
     }
-
     void UnloadScene(int index)
     {
         if(index < 0 || index > 8)
@@ -263,7 +281,7 @@ public class MapGeneratorScript : MonoBehaviour
     public IEnumerator MoveCameraToNextScene(string axis,int sign, float distToMove, int nextSceneIndex)
     {
         float pos = 0; // Camera move increaser  
-      
+        _player.transform.gameObject.SetActive(false); 
         if(axis == "x")
         {
             distToMove = 5.5f;
@@ -279,8 +297,23 @@ public class MapGeneratorScript : MonoBehaviour
             pos += Time.deltaTime;
             yield return null;
         }
-        LoadScene(currentRoomGrid[nextSceneIndex].roomIndex);
-        _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        if (nextSceneIndex == 1)
+        {
+            ChangeGridDown();
+        }
+        else if(nextSceneIndex == 3)
+        {
+            ChangeGridLeft();
+        }
+        else if(nextSceneIndex == 5)
+        {
+            ChangeGridRight();
+        }
+        else
+        {
+            ChangeGridUp();
+        }
+        LoadScene(currentRoomGrid[4].roomIndex);
 
     }
     void LoadRoomSprites()
