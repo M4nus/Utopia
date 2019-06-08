@@ -161,7 +161,7 @@ public class MapGeneratorScript : MonoBehaviour
         LoadRoomSprites();
     }
 
-        void ChangeRoomToRight()
+    void ChangeRoomToRight()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("x", 1, 5.5f, 5)); //Load scene from RoomInstance at right position (index 5)
@@ -184,7 +184,7 @@ public class MapGeneratorScript : MonoBehaviour
         LoadRoomSprites();
     }
 
-        void ChangeRoomToUp()
+    void ChangeRoomToUp()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("y", 1, 5.5f, 7)); //Load scene from RoomInstance at top position (index 7)
@@ -207,7 +207,7 @@ public class MapGeneratorScript : MonoBehaviour
         LoadRoomSprites();
     }
 
-        void ChangeRoomToDown()
+    void ChangeRoomToDown()
     {
         SaveCurrentRoom();
         StartCoroutine(MoveCameraToNextScene("y", -1, 5.5f, 1)); //Load scene from RoomInstance at down position (index 1)
