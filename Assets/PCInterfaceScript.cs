@@ -1,13 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ButtonExitScrpit : MonoBehaviour
+using UnityEngine.UI;
+public class PCInterfaceScript : MonoBehaviour
 {
-    public Sprite SpriteNormal;
-    public Sprite SpriteClicked;
-    public bool isClicked = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +16,8 @@ public class ButtonExitScrpit : MonoBehaviour
         
     }
 
-    public void ButtonClicked()
+    public void ToogleInterfaceActive()
     {
-        isClicked = !isClicked;
+        this.gameObject.SetActive(!this.gameObject.active);
     }
 }
