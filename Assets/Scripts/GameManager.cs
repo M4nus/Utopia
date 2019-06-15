@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
         rows = 3;
         actScene = SceneManager.GetActiveScene().buildIndex + 1;
         _player.transform.position = lastPos;
-        _mapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGeneratorScript>();
-        GenerateRoomSprites();
+        //_mapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGeneratorScript>();
+        //GenerateRoomSprites();
 	}   
 
     public IEnumerator MoveCamera(string axis, float distToMove)
