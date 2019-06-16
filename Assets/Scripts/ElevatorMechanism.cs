@@ -18,7 +18,7 @@ public class ElevatorMechanism : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E))
             {
-                StartCoroutine(_sm.MoveCamera("y", 3f));
+                //StartCoroutine(_sm.MoveCamera("y", 3f)); //Disabled because interaction is moved to button from canvas
             }
         }
     }

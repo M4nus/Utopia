@@ -19,7 +19,7 @@ public class DoorMechanism : MonoBehaviour
         {                               
             if(Input.GetKeyDown(KeyCode.E))
             {
-                StartCoroutine(_sm.MoveCamera("x", 5.5f));             
+                //StartCoroutine(_sm.MoveCamera("x", 5.5f));    //Disabled because interaction is moved to button from canvas         
             }
         }
     }

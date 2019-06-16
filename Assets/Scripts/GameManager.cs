@@ -40,20 +40,21 @@ public class GameManager : MonoBehaviour
         //_mapGeneratorScript = GameObject.FindGameObjectWithTag("MapGenerator").GetComponent<MapGeneratorScript>();
         //GenerateRoomSprites();
 	}   
+    
+    public IEnumerator MoveCamera(string axis, float distToMove,int sceneToLoad)
+    {
+        
+        //float pos = 0; // Camera move increaser  
+        //_player.transform.gameObject.SetActive(false);
 
-    public IEnumerator MoveCamera(string axis, float distToMove)
-    {   
-        float pos = 0; // Camera move increaser  
-        SetValues(axis);      
-                                           
-        while(distToMove > Mathf.Abs(pos))
-        {
-            Vector3 move = (axis == "x") ? new Vector3(xSign * pos, 0f, -5f) : new Vector3(0f, ySign * pos, -5f);
-            _camera.position = move;
-            pos += Time.deltaTime;                                                                      
-            yield return null;
-        }
-        ChangeScene(actScene + sceneOffset);
+        //while (distToMove > Mathf.Abs(pos))
+        //{
+        //    Vector3 move = (axis == "x") ? new Vector3(-1 * pos, 0f, -5f) : new Vector3(0f, -1 * pos, -5f);
+        //    _camera.position = move;
+        //    pos += Time.deltaTime;
+        yield return null;
+        SceneManager.LoadScene(sceneToLoad);
+        //}
     }
 
     public void ChangeScene(int index)
@@ -80,11 +81,11 @@ public class GameManager : MonoBehaviour
         _player.SetActive(false);                                       // Disable player on scene change     
         xSign = (Random.Range(0, 2) % 2 == 0) ? -1 : 1;
         ySign = (Random.Range(0, 2) % 2 == 0) ? -1 : 1;
-        CheckBoundaries();                                              // Checking boundaries
-        sceneOffset = (axis == "x") ? 1 * xSign : collumns * ySign;    // If left/right then scene by 1 
+        //CheckBoundaries();                                              // Checking boundaries
+        //sceneOffset = (axis == "x") ? 1 * xSign : collumns * ySign;    // If left/right then scene by 1 
         // Setting next pos whether I used eleator or corridor
-        lastPos = (axis == "x") ? new Vector2(-2.16f, _player.transform.position.y)
-                                : new Vector2(-1f, _player.transform.position.y);
+        //lastPos = (axis == "x") ? new Vector2(-2.16f, _player.transform.position.y)
+        //                        : new Vector2(-1f, _player.transform.position.y);
     }    
 }
                                                                                                         

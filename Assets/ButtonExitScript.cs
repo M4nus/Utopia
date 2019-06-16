@@ -8,6 +8,7 @@ public class ButtonExitScript : MonoBehaviour
     public Sprite SpriteNormal;
     public Sprite SpriteClicked;
     public bool isClicked = false;
+    public bool isClock = false;
     Button ButtonComponent;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,17 @@ public class ButtonExitScript : MonoBehaviour
     {
         isClicked = !isClicked;
         ChangeSprite();
-        this.gameObject.GetComponentInParent<PCInterfaceScript>().ToogleInterfaceActive();
+        if (isClock == false)
+        {
+            this.gameObject.GetComponentInParent<GenericPCInterfaceScript>().ToogleInterfaceActive();
+        }
+        else
+        {
+            this.gameObject.GetComponentInParent<ClockRoomPCInterfaceScript>().ToogleInterfaceActive();
+
+        }
+
+
         isClicked = false;
         ChangeSprite();
     }
