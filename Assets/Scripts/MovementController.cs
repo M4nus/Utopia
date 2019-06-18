@@ -6,11 +6,12 @@ public class MovementController : MonoBehaviour
 {
     public Animator animator;
 
-    float _moveSpeed;
+    float _moveSpeed = 10;
+    public float _targetMoveSpeed = 10;
 
     void Start()
     {
-        _moveSpeed = 0f;
+        //_moveSpeed = 0f;
     }
 
     void Update ()
@@ -19,13 +20,13 @@ public class MovementController : MonoBehaviour
         _moveSpeed = 0f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) )
         {
-            _moveSpeed = 1f;
+            _moveSpeed = _targetMoveSpeed;
             transform.eulerAngles = new Vector3(0, 0, 0); // Normal
             Move();
         }
         if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) )
         {
-            _moveSpeed = 1f;
+            _moveSpeed = _targetMoveSpeed;
             transform.eulerAngles = new Vector3(0, 180, 0); // Flipped      
             Move();
         } 
