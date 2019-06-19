@@ -10,10 +10,10 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject chalkOutline;
+    public GameObject Antoni;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -35,6 +35,20 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("PCTerminal got clicked on! :D");
+        StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
+    }
+
+
+    IEnumerator MoveToPCInterface(float x)
+    {
+        Antoni.SendMessage("MoveToPosition", x);
+        while (Antoni.transform.position.x != x)
+        {
+            yield return null;
+        }
+        Debug.Log("Antoni arrived at PCInterface");
+        yield return new WaitForSeconds(1.0f);
         chalkOutline.SetActive(true);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 }

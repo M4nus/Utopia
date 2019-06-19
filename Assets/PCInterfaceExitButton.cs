@@ -34,6 +34,7 @@ public class PCInterfaceExitButton : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("ExitButton got clicked on! :D");
-        
+        this.transform.parent.gameObject.SetActive(false);
+        Cursor.SetCursor(cursorTexturePointer, hotSpotPointer, cursorMode);
     }
 }
