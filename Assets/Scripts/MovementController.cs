@@ -9,6 +9,7 @@ public class MovementController : MonoBehaviour
     float _moveSpeed = 10;
     public float _targetMoveSpeed = 10;
     public bool MovementEnabled = true;
+    public bool AntoniArrivedAtNewFloor = false;
 
     void Start()
     {

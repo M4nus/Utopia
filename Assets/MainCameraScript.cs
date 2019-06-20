@@ -20,7 +20,7 @@ public class MainCameraScript : MonoBehaviour
         
 
     }
-    public void MoveCameraBy(Vector3 changeInPositioin)
+    public void MoveCameraAndAntoniBy(Vector3 changeInPositioin)
     {
         smoothDampVelocity = new Vector3(0, 0, 0);
         targetCameraPosition = (transform.position + changeInPositioin);
@@ -34,7 +34,8 @@ public class MainCameraScript : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, targetCameraPosition, ref smoothDampVelocity, 0.5f, 20.0f);
             yield return null;
         }
+        Antioni.GetComponent<MovementController>().AntoniArrivedAtNewFloor = true;
         Debug.Log("Antoni finished riding the elevator");
-        Antioni.transform.position = new Vector3(Antioni.transform.position.x, Antioni.transform.position.y + 174, Antioni.transform.position.z);
+
     }
 }
