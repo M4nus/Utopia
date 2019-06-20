@@ -10,6 +10,8 @@ public class PCInterfaceExitFromGameButtonScript : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public bool IsClicked = false;
+    public Sprite clickedButtonSprite;
+    public Sprite notClickedButtonSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,12 +46,13 @@ public class PCInterfaceExitFromGameButtonScript : MonoBehaviour
             this.transform.GetChild(0).transform.gameObject.SetActive(true);
 
             IsClicked = true;
-
+            this.transform.GetComponent<SpriteRenderer>().sprite = clickedButtonSprite;
             Debug.Log("ExitGameButton got clicked on! :D");
         }
         else
         {
             Debug.Log("ExitGameButton got clicked off! :D");
+            this.transform.GetComponent<SpriteRenderer>().sprite = notClickedButtonSprite;
             this.transform.GetChild(0).transform.gameObject.SetActive(false);
             IsClicked = false;
         }

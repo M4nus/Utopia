@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PCInterfaceNoteButtonScript : MonoBehaviour
+public class PCInterfaceNoteButtonInside : MonoBehaviour
 {
     public Texture2D cursorTexturePointer;
     public Texture2D cursorTextureHand;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
-    public bool IsClicked = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +34,7 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
     void OnMouseDown()
     {
 
-        Debug.Log("NoteButton got clicked on! :D");
-        this.transform.GetChild(0).gameObject.SetActive(true);
+        Debug.Log("NoteButton got clicked off! :C");
+        this.transform.parent.gameObject.SetActive(false);
     }
-
-
 }
