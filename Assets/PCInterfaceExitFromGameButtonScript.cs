@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PCInterfaceCororRoomScript : MonoBehaviour
+public class PCInterfaceExitFromGameButtonScript : MonoBehaviour
 {
     public Texture2D cursorTexturePointer;
     public Texture2D cursorTextureHand;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
-    public GameObject Antoni;
+    public bool IsClicked = false;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -33,20 +34,25 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log("PCTerminal got clicked on! :D");
-        StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
+        ToogleButton();
     }
 
-
-    IEnumerator MoveToPCInterface(float x)
+    void ToogleButton()
     {
-        Antoni.SendMessage("MoveToPosition", x);
-        while (Antoni.transform.position.x != x)
+        if (!IsClicked)
         {
-            yield return null;
+            this.transform.GetChild(0).transform.gameObject.SetActive(true);
+
+            IsClicked = true;
+
+            Debug.Log("ExitGameButton got clicked on! :D");
         }
-        Debug.Log("Antoni arrived at PCInterface");
-        yield return new WaitForSeconds(1.0f);
-        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        else
+        {
+            Debug.Log("ExitGameButton got clicked off! :D");
+            this.transform.GetChild(0).transform.gameObject.SetActive(false);
+            IsClicked = false;
+        }
     }
+
 }
