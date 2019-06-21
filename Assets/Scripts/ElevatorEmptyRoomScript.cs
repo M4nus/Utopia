@@ -14,6 +14,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
     Camera mainCamera;
     public GameObject NextElevator;
     MovementController AntoniMovementController;
+    public bool ElevatorOpen = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,11 +42,22 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Elevator got clicked on! :D");
-        StartCoroutine(MoveToPossition(this.transform.position.x));
+        if (ElevatorOpen)
+        {
+            ElevatorOpen = false;
+            StartCoroutine(GoIntoElevator(this.transform.position.x));
+        }
+
     }
 
+    public IEnumerator OpenElevator()
+    {
+        animatior.SetTrigger("OpenElevator");
+        yield return new WaitForSeconds(1.0f);
+        ElevatorOpen = true;
+    }
 
-    IEnumerator MoveToPossition(float x)
+    IEnumerator GoIntoElevator(float x)
     {
         Antoni.SendMessage("MoveToPosition", x);
         while (Antoni.transform.position.x != x)
@@ -54,9 +66,9 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         }
         Debug.Log("Antoni arrived at the elevator");
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("Antoni wants to ride the elevator");
-        animatior.SetTrigger("OpenElevator");
-        yield return new WaitForSeconds(3.0f);
+        //Debug.Log("Antoni wants to ride the elevator");
+        //animatior.SetTrigger("OpenElevator");
+        //yield return new WaitForSeconds(3.0f);
         
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f);
 

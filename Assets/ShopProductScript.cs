@@ -24,7 +24,7 @@ public class ShopProductScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count < 3)
+        if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count < 3 && this.transform.parent.GetComponent<ShopProductCollectionScript>().AllowProducktPickup)
         {
             Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
         }
@@ -37,7 +37,7 @@ public class ShopProductScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count < 3)
+        if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count < 3 && this.transform.parent.GetComponent<ShopProductCollectionScript>().AllowProducktPickup)
         {
             StartCoroutine(GetTheProduckt());
         }
@@ -53,7 +53,10 @@ public class ShopProductScript : MonoBehaviour
         {
             yield return null;
         }
-        
+        if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count == 3)
+        {
+            this.transform.parent.GetComponent<ShopProductCollectionScript>().Elevator.GetComponent<ElevatorEmptyRoomScript>().SendMessage("OpenElevator");
+        }
         this.gameObject.SetActive(false);
     }
 }

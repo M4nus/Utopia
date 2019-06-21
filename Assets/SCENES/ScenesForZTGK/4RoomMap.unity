@@ -1644,6 +1644,7 @@ MonoBehaviour:
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
   NextElevator: {fileID: 1723576517}
+  ElevatorOpen: 0
 --- !u!61 &191581785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3007,6 +3008,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoosenProducts: 
   Antoni: {fileID: 1527861154}
+  AllowProducktPickup: 0
+  Elevator: {fileID: 1218002932}
 --- !u!1 &369548653
 GameObject:
   m_ObjectHideFlags: 0
@@ -5950,6 +5953,7 @@ MonoBehaviour:
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
   NextElevator: {fileID: 1218002932}
+  ElevatorOpen: 0
 --- !u!61 &715724606
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8998,7 +9002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166145461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5bcb80c697b855488eba2c4c549219b, type: 3}
+  m_Script: {fileID: 11500000, guid: 809bc2fc86bed8246b9129284abadf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexturePointer: {fileID: 2800000, guid: 442fa21c8973b9c4ca4e9b2250841cd3,
@@ -9008,6 +9012,7 @@ MonoBehaviour:
   hotSpotPointer: {x: 0, y: 0}
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
+  ProductCollectionObject: {fileID: 368714798}
 --- !u!61 &1166145464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9489,6 +9494,7 @@ MonoBehaviour:
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
   NextElevator: {fileID: 0}
+  ElevatorOpen: 0
 --- !u!61 &1218002935
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12925,6 +12931,7 @@ MonoBehaviour:
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
   NextElevator: {fileID: 715724603}
+  ElevatorOpen: 0
 --- !u!61 &1723576520
 BoxCollider2D:
   m_ObjectHideFlags: 0

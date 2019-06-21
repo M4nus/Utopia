@@ -7,6 +7,8 @@ public class ShopProductCollectionScript : MonoBehaviour
     // Start is called before the first frame update
     public List<int> ChoosenProducts;
     public GameObject Antoni;
+    public bool AllowProducktPickup = false;
+    public GameObject Elevator;
     void Start()
     {
         ChoosenProducts = new List<int>();
@@ -24,6 +26,7 @@ public class ShopProductCollectionScript : MonoBehaviour
         if (ChoosenProducts.Count == 3)
         {
             Debug.Log("All products choosen: " + ChoosenProducts[0] + " " + ChoosenProducts[1] + " " + ChoosenProducts[2]);
+            
         }
     }
 }
