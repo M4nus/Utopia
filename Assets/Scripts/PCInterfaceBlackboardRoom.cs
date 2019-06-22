@@ -9,7 +9,7 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
-    public GameObject chalkOutline;
+    public GameObject chalk;
     public GameObject Antoni;
     // Start is called before the first frame update
     void Start()
@@ -47,8 +47,8 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
-        yield return new WaitForSeconds(1.0f);
-        chalkOutline.SetActive(true);
+        yield return new WaitForSeconds(0.4f);
+        chalk.SendMessage("ActivateChalk");
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 }

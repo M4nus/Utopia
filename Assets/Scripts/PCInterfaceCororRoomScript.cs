@@ -10,6 +10,7 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
+    public GameObject ColoredLightsCollecion;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +47,8 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        ColoredLightsCollecion.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage = true;
     }
 }

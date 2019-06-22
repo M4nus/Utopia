@@ -31,7 +31,11 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
+        if (ElevatorOpen)
+        {
+            Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
+        }
+        
     }
 
     void OnMouseExit()
@@ -50,7 +54,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
 
     }
 
-    public IEnumerator OpenElevator()
+    public IEnumerator OpenElevator() 
     {
         animatior.SetTrigger("OpenElevator");
         yield return new WaitForSeconds(1.0f);
@@ -59,47 +63,49 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
 
     IEnumerator GoIntoElevator(float x)
     {
-        Antoni.SendMessage("MoveToPosition", x);
+        Antoni.SendMessage("MoveToPosition", x); //Move Antoni to the elevator
         while (Antoni.transform.position.x != x)
         {
-            yield return null;
+            yield return null;                  //Wait for Antoni to move to elevator
         }
         Debug.Log("Antoni arrived at the elevator");
-        yield return new WaitForSeconds(1.0f);
-        //Debug.Log("Antoni wants to ride the elevator");
-        //animatior.SetTrigger("OpenElevator");
-        //yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f); // Wait a second for no reason
         
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f);
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move elevator door in front of Antoni
 
-        animatior.SetTrigger("CloseElevator");
+        animatior.SetTrigger("CloseElevator"); //Start closing the elevator
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(3.0f);  //Wait till elevator closes
 
-        mainCamera.GetComponent<MainCameraScript>().MoveCameraAndAntoniBy(new Vector3(0, 174, 0));
+        mainCamera.GetComponent<MainCameraScript>().MoveCameraAndAntoniBy(new Vector3(0, 174, 0)); //Start moving camera to next floor
+        if(NextElevator==null)
+        {
+            Debug.Log("GameIsFinished-play outro"); //If there is no next elevator that means that it is the last floor and we need to finish the game
+        }
 
         while (AntoniMovementController.AntoniArrivedAtNewFloor == false)
         {
-            yield return null;
+            yield return null; //waint until camera arrived at next floor
         }
-        AntoniMovementController.AntoniArrivedAtNewFloor = false;
-        Antoni.transform.position = new Vector3(Antoni.transform.position.x, Antoni.transform.position.y + 174, Antoni.transform.position.z);
+        AntoniMovementController.AntoniArrivedAtNewFloor = false; //Clear flag that sets when camera arrives at next floot
+        Antoni.transform.position = new Vector3(Antoni.transform.position.x, Antoni.transform.position.y + 174, Antoni.transform.position.z); //Move Antoni to next floor
         if (NextElevator != null)
         {
-            NextElevator.SendMessage("AntoniArrived");
+            NextElevator.SendMessage("AntoniArrived"); //Tell next elevator to close
         }
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f);
+        
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f); //Move elevator door behing Antoni (no need to do that if antoni will never return to floor that is previously visited)
         yield return null;
     }
 
     IEnumerator AntoniArrived()
     {
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f);
-        animatior.SetTrigger("OpenElevator");
-        yield return new WaitForSeconds(1.5f);
-        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f);
-        Debug.Log("Let Antoni walk freely");
-        yield return new WaitForSeconds(1.5f);
-        animatior.SetTrigger("CloseElevator");
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move door in front of antoni
+        animatior.SetTrigger("OpenElevator"); //Start opening the elevator
+        yield return new WaitForSeconds(1.5f); //Wait for elevator to open
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f); //Move elevator door behind Antoni
+        Debug.Log("Let Antoni walk freely"); //Allow Player to move antoni
+        yield return new WaitForSeconds(1.5f); //
+        animatior.SetTrigger("CloseElevator"); //Close Elebator door after short delay
     }
 }

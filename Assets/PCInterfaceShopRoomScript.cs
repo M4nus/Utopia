@@ -49,7 +49,7 @@ public class PCInterfaceShopRoomScript : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 }
