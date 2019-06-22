@@ -11,7 +11,10 @@ public class BoardRoomChalkScript : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
     private TextMesh BoardWritingField;
-    // Start is called before the first frame update
+    private bool boardInteraction = false;
+    // Start is called before the first frame update    
+                                              
+
     void Start()
     {
         BoardWritingField = transform.GetChild(1).GetComponent<TextMesh>();
@@ -35,13 +38,13 @@ public class BoardRoomChalkScript : MonoBehaviour
 
     void OnMouseDown()
     {
+        boardInteraction = true;
         Debug.Log("Chalk got clicked on! :D");
         if(this.transform.GetChild(0).gameObject.activeSelf == true)
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(MoveWriteOnBoard(this.transform.position.x));
-        }
-
+        }                  
     }
 
     IEnumerator MoveWriteOnBoard(float x)
@@ -55,6 +58,17 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         yield return new WaitForSeconds(2.0f);
         BoardWritingField.text = "Zawsze będę posłuszny...";
-
     }
+
+    void OnGUI()
+    {
+        Event e = Event.current;
+        if(e.type == EventType.KeyDown && e.keyCode.ToString().Length == 1 && char.IsLetter(e.keyCode.ToString()[0]) && boardInteraction)
+        {
+            Debug.Log("Detected key code: " + e.keyCode);
+            BoardWritingField.text += e.keyCode;
+            if(Input.GetKeyDown(KeyCode.Return))
+                boardInteraction = false;
+        }
+    }           
 }
