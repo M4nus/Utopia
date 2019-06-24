@@ -10,10 +10,10 @@ public class BoardRoomChalkScript : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
+    public GameObject Elevator;
     private TextMesh BoardWritingField;
-    private bool boardInteraction = false;
-    // Start is called before the first frame update    
-                                              
+    bool isInteractable = false;
+    // Start is called before the first frame update
 
     void Start()
     {
@@ -28,7 +28,11 @@ public class BoardRoomChalkScript : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
+        if (isInteractable)
+        {
+            Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
+        }
+        
     }
 
     void OnMouseExit()
@@ -40,7 +44,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     {
         boardInteraction = true;
         Debug.Log("Chalk got clicked on! :D");
-        if(this.transform.GetChild(0).gameObject.activeSelf == true)
+        if(isInteractable)
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(MoveWriteOnBoard(this.transform.position.x));
@@ -58,6 +62,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         yield return new WaitForSeconds(2.0f);
         BoardWritingField.text = "Zawsze będę posłuszny...";
+
     }
 
     void OnGUI()
