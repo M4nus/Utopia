@@ -11,7 +11,6 @@ public class BoardRoomChalkScript : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
     public GameObject Elevator;
-<<<<<<< HEAD
     public string sentence;
     [Range(0,2)]
     public int correction = 0;
@@ -21,16 +20,10 @@ public class BoardRoomChalkScript : MonoBehaviour
     private bool boardInteraction = false;   
     private string correctAnswer;
      
-=======
-    private TextMesh BoardWritingField;
-    bool isInteractable = false;
-    // Start is called before the first frame update
->>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
 
     void Start()
     {
         BoardWritingField = transform.GetChild(1).GetComponent<TextMesh>();
-<<<<<<< HEAD
         sentence = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";
         correctAnswer = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";/* +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
@@ -43,15 +36,6 @@ public class BoardRoomChalkScript : MonoBehaviour
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";   */
     }        
-=======
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
->>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
 
     void OnMouseEnter()
     {
@@ -69,20 +53,12 @@ public class BoardRoomChalkScript : MonoBehaviour
 
     void OnMouseDown()
     {
-<<<<<<< HEAD
-=======
-        boardInteraction = true;
->>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
         Debug.Log("Chalk got clicked on! :D");
         if(isInteractable)
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(MoveWriteOnBoard(this.transform.position.x));
-<<<<<<< HEAD
         }                        
-=======
-        }                  
->>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
     }
 
     IEnumerator MoveWriteOnBoard(float x)
@@ -94,7 +70,6 @@ public class BoardRoomChalkScript : MonoBehaviour
         }
         Debug.Log("Antoni arrived at Chalk");
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
-<<<<<<< HEAD
         BoardWritingField.text = sentence + " ";
         boardInteraction = true;    
     }                                             
@@ -180,22 +155,4 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", false);
         CheckCorrection();
     }
-=======
-        yield return new WaitForSeconds(2.0f);
-        BoardWritingField.text = "Zawsze będę posłuszny...";
-
-    }
-
-    void OnGUI()
-    {
-        Event e = Event.current;
-        if(e.type == EventType.KeyDown && e.keyCode.ToString().Length == 1 && char.IsLetter(e.keyCode.ToString()[0]) && boardInteraction)
-        {
-            Debug.Log("Detected key code: " + e.keyCode);
-            BoardWritingField.text += e.keyCode;
-            if(Input.GetKeyDown(KeyCode.Return))
-                boardInteraction = false;
-        }
-    }           
->>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
 }
