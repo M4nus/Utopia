@@ -3889,7 +3889,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170794902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -6.4233336, y: 29.560001, z: -0.0001}
+=======
+  m_LocalPosition: {x: -6.4233336, y: 29.560001, z: -4.9}
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
   m_Children: []
   m_Father: {fileID: 1161641077}
@@ -3903,10 +3907,17 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170794902}
+<<<<<<< HEAD
   m_Text: "B\u0141\u0104D, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA"
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1.5
+=======
+  m_Text: 
+  m_OffsetZ: 0
+  m_CharacterSize: 2
+  m_LineSpacing: 1
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
@@ -12398,7 +12409,11 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
+<<<<<<< HEAD
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+=======
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -12438,7 +12453,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635157665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 0, y: 172.3, z: -500}
+=======
+  m_LocalPosition: {x: 0, y: 0, z: -500}
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -21242,7 +21261,10 @@ MonoBehaviour:
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
   Elevator: {fileID: 1723576517}
+<<<<<<< HEAD
   sentence: "Zawsze b\u0119d\u0119 pos\u0142uszny"
+=======
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
 --- !u!61 &1161641079
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29151,7 +29173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4279732917955810, guid: d245332a0022b6a48a55b183d2f651d8, type: 3}
       propertyPath: m_LocalPosition.y
+<<<<<<< HEAD
       value: 117
+=======
+      value: -55.3
+>>>>>>> 2e217b23170fec496182ff8e0c7107f9715fea7a
       objectReference: {fileID: 0}
     - target: {fileID: 4279732917955810, guid: d245332a0022b6a48a55b183d2f651d8, type: 3}
       propertyPath: m_LocalPosition.z
