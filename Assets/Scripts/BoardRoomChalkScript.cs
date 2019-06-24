@@ -13,6 +13,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     public GameObject Elevator;
     private TextMesh BoardWritingField;
     bool isInteractable = false;
+    bool boardInteraction = false;
     // Start is called before the first frame update
 
     void Start()
@@ -53,15 +54,24 @@ public class BoardRoomChalkScript : MonoBehaviour
 
     IEnumerator MoveWriteOnBoard(float x)
     {
+
         Antoni.SendMessage("MoveToPosition", x);
         while (Antoni.transform.position.x != x)
         {
             yield return null;
         }
         Debug.Log("Antoni arrived at Chalk");
+        Antoni.SendMessage("AllowPlayerToClick", false);
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         yield return new WaitForSeconds(2.0f);
         BoardWritingField.text = "Zawsze będę posłuszny...";
+        //When player finished writing
+        Antoni.SendMessage("AllowPlayerToClick", true); // <--- Add this line when player fininished writing on board and is free to walk and interact with other objects
+        Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", false);
+        Antoni.SendMessage("AllowPlayerToMove", true);
+        Elevator.SendMessage("OpenElevator");
+        isInteractable = false;
+        //
 
     }
 
@@ -75,5 +85,11 @@ public class BoardRoomChalkScript : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Return))
                 boardInteraction = false;
         }
-    }           
+    }
+    
+    public void ActivateChalk()
+    {
+        isInteractable = true;
+        this.transform.GetChild(0).gameObject.SetActive(true);
+    }
 }

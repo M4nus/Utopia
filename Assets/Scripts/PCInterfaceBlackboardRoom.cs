@@ -11,9 +11,12 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject chalk;
     public GameObject Antoni;
+    Camera mainCamera;
+    bool alreadyDone = false;
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -48,7 +51,23 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
         }
         Debug.Log("Antoni arrived at PCInterface");
         yield return new WaitForSeconds(0.4f);
-        chalk.SendMessage("ActivateChalk");
+        if (alreadyDone == false)
+        {
+            chalk.SendMessage("ActivateChalk");
+            alreadyDone = true;
+        }
+        
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+
+    public void AllowPlayerToClick(bool isAllowed)
+    {
+        mainCamera.transform.GetChild(0).gameObject.SetActive(!isAllowed); //Enable or disable raycast blocker
+    }
+
+    public void AllowPlayerToMove(bool isAllowed)
+    {
+        Antoni.SendMessage("AllowPlayerToMove", isAllowed); //Enable or disable Player movement
     }
 }

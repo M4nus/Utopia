@@ -11,10 +11,11 @@ public class PCInterfaceShopRoomScript : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
     public GameObject ProductCollectionObject;
+    Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -51,5 +52,14 @@ public class PCInterfaceShopRoomScript : MonoBehaviour
         Debug.Log("Antoni arrived at PCInterface");
         yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+    }
+    public void AllowPlayerToClick(bool isAllowed)
+    {
+        mainCamera.transform.GetChild(0).gameObject.SetActive(!isAllowed); //Enable or disable raycast blocker
+    }
+
+    public void AllowPlayerToMove(bool isAllowed)
+    {
+        Antoni.SendMessage("AllowPlayerToMove", isAllowed); //Enable or disable Player movement
     }
 }
