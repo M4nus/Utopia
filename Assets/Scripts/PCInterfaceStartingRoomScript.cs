@@ -10,6 +10,7 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
+    public GameObject Elevator;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,18 +36,20 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
     {
         Debug.Log("PCTerminal got clicked on! :D");
         StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
+
     }
 
 
     IEnumerator MoveToPCInterface(float x)
     {
-        Antoni.SendMessage("MoveToPosition", x);
+        Antoni.SendMessage("MoveToPosition", x); //
         while (Antoni.transform.position.x != x)
         {
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
         yield return new WaitForSeconds(1.0f);
-        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true); //Set PCInterface to be visible and interactable
+        Elevator.SendMessage("OpenElevator");
     }
 }
