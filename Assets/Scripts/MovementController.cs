@@ -10,20 +10,21 @@ public class MovementController : MonoBehaviour
     public float _targetMoveSpeed = 10;
     public bool MovementEnabled = true;
     public bool AntoniArrivedAtNewFloor = false;
-
+    Camera mainCamera;
     void Start()
     {
+        mainCamera = FindObjectOfType<Camera>();
         //_moveSpeed = 0f;
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update ()
     {
+        animator.SetFloat("Speed", Mathf.Abs(_moveSpeed));
+        _moveSpeed = 0f;
+        rigidbody2D.velocity = Vector3.zero;
         if (MovementEnabled)
         {
-            animator.SetFloat("Speed", Mathf.Abs(_moveSpeed));
-            _moveSpeed = 0f;
-            rigidbody2D.velocity = Vector3.zero;
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 _moveSpeed = -_targetMoveSpeed;
@@ -48,6 +49,8 @@ public class MovementController : MonoBehaviour
 
     IEnumerator MoveToPosition(float x)
     {
+        MovementEnabled = false; //Disable movement when antoni is controlled by mouse
+        AllowPlayerToClick(false);
         Debug.Log("Antoni tries to move to x=" + x);
         if(x > this.transform.position.x)
         {
@@ -74,10 +77,18 @@ public class MovementController : MonoBehaviour
         Move(0);
         transform.position = new Vector3(x,transform.position.y, transform.position.z);
         //transform.eulerAngles = new Vector3(0, transform.rotation.y+180, 0);
-        
-        
+        //Enable movement by arrowkeys after movement by mouse has ended
+        AllowPlayerToClick(true);
 
     }
 
+    void AllowPlayerToClick(bool isAllowed)
+    {
+        mainCamera.transform.GetChild(0).gameObject.SetActive(!isAllowed); //Enable or disable raycast blocker
+    }
+    void AllowPlayerToMove(bool isAllowed)
+    {
+        MovementEnabled = isAllowed;//Enable or disable Player movement
+    }
 
 }

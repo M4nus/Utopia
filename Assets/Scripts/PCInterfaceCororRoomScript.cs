@@ -11,9 +11,11 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject Antoni;
     public GameObject ColoredLightsCollecion;
+    Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -50,5 +52,15 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         ColoredLightsCollecion.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage = true;
+    }
+
+    public void AllowPlayerToClick(bool isAllowed)
+    {
+        mainCamera.transform.GetChild(0).gameObject.SetActive(!isAllowed); //Enable or disable raycast blocker
+    }
+
+    public void AllowPlayerToMove(bool isAllowed)
+    {
+        Antoni.SendMessage("AllowPlayerToMove", isAllowed); //Enable or disable Player movement
     }
 }

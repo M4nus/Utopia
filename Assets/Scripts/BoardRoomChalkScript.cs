@@ -15,11 +15,12 @@ public class BoardRoomChalkScript : MonoBehaviour
     [Range(0,2)]
     public int correction = 0;
     private TextMesh BoardWritingField;
+
     private int lines = 0;
     private bool isInteractable = false;
     private bool boardInteraction = false;   
     private string correctAnswer;
-     
+
 
     void Start()
     {
@@ -63,16 +64,19 @@ public class BoardRoomChalkScript : MonoBehaviour
 
     IEnumerator MoveWriteOnBoard(float x)
     {
+
         Antoni.SendMessage("MoveToPosition", x);
         while (Antoni.transform.position.x != x)
         {
             yield return null;
         }
         Debug.Log("Antoni arrived at Chalk");
+        Antoni.SendMessage("AllowPlayerToClick", false);
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         BoardWritingField.text = sentence + " ";
         boardInteraction = true;    
     }                                             
+
 
     void OnGUI()
     {
@@ -140,6 +144,7 @@ public class BoardRoomChalkScript : MonoBehaviour
             Debug.Log("Correct: \n" + correctAnswer);
             Debug.Log("Your: \n" + BoardWritingField.text);
         }
+        
     }
 
     public void ActivateChalk()
@@ -148,11 +153,17 @@ public class BoardRoomChalkScript : MonoBehaviour
         this.transform.GetChild(0).gameObject.SetActive(true);
     }
 
+
     public void DisableInteraction()
     {
         isInteractable = false;
         boardInteraction = false;
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", false);
+        Antoni.SendMessage("AllowPlayerToClick", true); // <--- Add this line when player fininished writing on board and is free to walk and interact with other objects
+        Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", false);
+        Antoni.SendMessage("AllowPlayerToMove", true);
+        Elevator.SendMessage("OpenElevator");
         CheckCorrection();
     }
+
 }

@@ -63,12 +63,15 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
 
     IEnumerator GoIntoElevator(float x)
     {
+        Antoni.GetComponent<MovementController>().MovementEnabled = false;
+        Antoni.SendMessage("AllowPlayerToClick", false); // Prevent from clicking while Atoni rides the elevators
         Antoni.SendMessage("MoveToPosition", x); //Move Antoni to the elevator
         while (Antoni.transform.position.x != x)
         {
             yield return null;                  //Wait for Antoni to move to elevator
         }
         Debug.Log("Antoni arrived at the elevator");
+        Antoni.SendMessage("AllowPlayerToClick", false);//When Antoni arrives at his destination he player is allowed to click again so we need to disable clicking again
         yield return new WaitForSeconds(1.0f); // Wait a second for no reason
         
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move elevator door in front of Antoni
@@ -103,9 +106,14 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move door in front of antoni
         animatior.SetTrigger("OpenElevator"); //Start opening the elevator
         yield return new WaitForSeconds(1.5f); //Wait for elevator to open
+        Antoni.GetComponent<MovementController>().MovementEnabled = true;
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f); //Move elevator door behind Antoni
         Debug.Log("Let Antoni walk freely"); //Allow Player to move antoni
+        mainCamera.transform.GetChild(0).transform.gameObject.SetActive(false); //Allow player to click again
         yield return new WaitForSeconds(1.5f); //
         animatior.SetTrigger("CloseElevator"); //Close Elebator door after short delay
     }
-}
+
+
+ 
+}  
