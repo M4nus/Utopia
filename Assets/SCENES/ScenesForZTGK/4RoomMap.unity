@@ -21246,6 +21246,7 @@ MonoBehaviour:
   Antoni: {fileID: 1527861154}
   Elevator: {fileID: 1723576517}
   sentence: "Zawsze b\u0119d\u0119 pos\u0142uszny"
+  correction: 0
 --- !u!61 &1161641079
 BoxCollider2D:
   m_ObjectHideFlags: 0

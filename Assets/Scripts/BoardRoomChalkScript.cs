@@ -26,7 +26,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     {
         BoardWritingField = transform.GetChild(1).GetComponent<TextMesh>();
         sentence = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";
-        correctAnswer = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";/* +
+        correctAnswer = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA \n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
@@ -35,8 +35,9 @@ public class BoardRoomChalkScript : MonoBehaviour
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
-                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";   */
-    }        
+                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
+                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";     
+    }
 
     void OnMouseEnter()
     {
@@ -126,23 +127,22 @@ public class BoardRoomChalkScript : MonoBehaviour
             Debug.Log(lines);       
             BoardWritingField.text += "\n";
             lines++;
-            if(lines == 2)
+            if(lines == 11)
                 DisableInteraction();    
         }
     }
 
     void CheckCorrection()
-    {
-        if(string.Compare(BoardWritingField.text, correctAnswer) == 0)
+    {                                                                                                             
+        if(BoardWritingField.text == correctAnswer)
         {
             correction = 1;
             Debug.Log("Correct");
         }
         else
         {
-            Debug.Log("Incorrect");
-            Debug.Log("Correct: \n" + correctAnswer);
-            Debug.Log("Your: \n" + BoardWritingField.text);
+            correction = 2;
+            Debug.Log("Incorrect");                         
         }
         
     }
