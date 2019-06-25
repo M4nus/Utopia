@@ -9,6 +9,7 @@ public class ShopProductCollectionScript : MonoBehaviour
     public GameObject Antoni;
     public bool AllowProducktPickup = false;
     public GameObject Elevator;
+    public GameObject ControlLights;
     void Start()
     {
         ChoosenProducts = new List<int>();
@@ -26,6 +27,14 @@ public class ShopProductCollectionScript : MonoBehaviour
         if (ChoosenProducts.Count == 3)
         {
             Debug.Log("All products choosen: " + ChoosenProducts[0] + " " + ChoosenProducts[1] + " " + ChoosenProducts[2]);
+            if(ChoosenProducts[0]==1&& ChoosenProducts[1] == 2 && ChoosenProducts[2] == 3)
+            {
+                ControlLights.SendMessage("setOrangeActive");
+            }
+            else
+            {
+                ControlLights.SendMessage("setBlueActive");
+            }
             
         }
     }

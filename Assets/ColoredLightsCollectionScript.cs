@@ -15,6 +15,8 @@ public class ColoredLightsCollectionScript : MonoBehaviour
     public bool clickedCorrectWithNRE = false;
     public bool clickedTheSameColor = false;
     public GameObject Elevator;
+    public GameObject ControlLights;
+
     void Start()
     {
         
@@ -44,6 +46,14 @@ public class ColoredLightsCollectionScript : MonoBehaviour
             if (colorIndex == index)
             {
                 clickedTheSameColor = true;
+            }
+            if(clickedTheSameColor&& clickedCorrectWithNRE)
+            {
+                ControlLights.SendMessage("setOrangeActive");
+            }
+            else
+            {
+                ControlLights.SendMessage("setBlueActive");
             }
             Debug.Log("PLayer finished room " + "same-" + clickedTheSameColor + " correct-" + clickedCorrectWithNRE);
             Elevator.SendMessage("OpenElevator");

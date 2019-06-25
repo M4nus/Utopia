@@ -15,7 +15,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     [Range(0,2)]
     public int correction = 0;
     private TextMesh BoardWritingField;
-
+    public GameObject ControlLights;
     private int lines = 0;
     private bool isInteractable = false;
     private bool boardInteraction = false;   
@@ -137,12 +137,14 @@ public class BoardRoomChalkScript : MonoBehaviour
         {
             correction = 1;
             Debug.Log("Correct");
+            ControlLights.SendMessage("setOrangeActive");
         }
         else
         {
             Debug.Log("Incorrect");
             Debug.Log("Correct: \n" + correctAnswer);
             Debug.Log("Your: \n" + BoardWritingField.text);
+            ControlLights.SendMessage("setBlueActive");
         }
         
     }
