@@ -21,13 +21,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         mainCamera = FindObjectOfType<Camera>();
         animatior = GetComponent<Animator>();
         AntoniMovementController = Antoni.GetComponent<MovementController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }                                          
 
     void OnMouseEnter()
     {
