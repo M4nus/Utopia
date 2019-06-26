@@ -45,6 +45,7 @@ public class ColoredLightsCollectionScript : MonoBehaviour
             else
             {
                 ControlLights.SendMessage("setBlueActive");
+                GameObject.Find("GameSettings").GetComponent<GameSettingsScript>().ColorOrange = false;
             }
             PopUpInformation.SetActive(false);
             Debug.Log("PLayer finished room " + "same-" + clickedTheSameColor + " correct-" + clickedCorrectWithNRE);

@@ -15,6 +15,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
     public GameObject NextElevator;
     MovementController AntoniMovementController;
     public bool ElevatorOpen = false;
+    public int ElevatorNumber = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +76,12 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         yield return new WaitForSeconds(3.0f);  //Wait till elevator closes
 
         mainCamera.GetComponent<MainCameraScript>().MoveCameraAndAntoniBy(new Vector3(0, 174, 0)); //Start moving camera to next floor
-        if(NextElevator==null)
+        if (ElevatorNumber == 3)
+        {
+            GameObject.Find("GameSettings").SendMessage("GoToEndScreen"); //If it's the last room Go to end Screen
+        }
+        
+        if (NextElevator==null)
         {
             Debug.Log("GameIsFinished-play outro"); //If there is no next elevator that means that it is the last floor and we need to finish the game
         }
@@ -89,6 +95,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         if (NextElevator != null)
         {
             NextElevator.SendMessage("AntoniArrived"); //Tell next elevator to close
+            NextElevator.GetComponent<ElevatorEmptyRoomScript>().ElevatorNumber = ElevatorNumber + 1;
         }
         
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f); //Move elevator door behing Antoni (no need to do that if antoni will never return to floor that is previously visited)

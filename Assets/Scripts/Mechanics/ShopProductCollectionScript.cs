@@ -30,6 +30,7 @@ public class ShopProductCollectionScript : MonoBehaviour
             else
             {
                 ControlLights.SendMessage("setBlueActive");
+                GameObject.Find("GameSettings").GetComponent<GameSettingsScript>().ShopOrange = false;
             }
 
         }
