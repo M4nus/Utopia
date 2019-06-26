@@ -10,11 +10,10 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     public Vector2 hotSpotPointer = Vector2.zero;
     public Vector2 hotSpotHand = Vector2.zero;
     public GameObject chalk;
-
     public GameObject Antoni;
     Camera mainCamera;
     bool alreadyDone = false;
-    // Start is called before the first frame update
+   
     void Start()
     {
         mainCamera = FindObjectOfType<Camera>();

@@ -15,10 +15,10 @@ public class BoardRoomChalkScript : MonoBehaviour
     [Range(0,2)]
     public int correction = 0;
     private TextMesh BoardWritingField;
-
+    public GameObject ControlLights;
     private int lines = 0;
     private bool isInteractable = false;
-    private bool boardInteraction = false;   
+    private bool boardInteraction = false;
     private string correctAnswer;
 
 
@@ -36,7 +36,7 @@ public class BoardRoomChalkScript : MonoBehaviour
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
-                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";     
+                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";
     }
 
     void OnMouseEnter()
@@ -45,7 +45,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         {
             Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
         }
-        
+
     }
 
     void OnMouseExit()
@@ -60,7 +60,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(MoveWriteOnBoard(this.transform.position.x));
-        }                        
+        }
     }
 
     IEnumerator MoveWriteOnBoard(float x)
@@ -75,8 +75,8 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.SendMessage("AllowPlayerToClick", false);
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         BoardWritingField.text = sentence + " ";
-        boardInteraction = true;    
-    }                                             
+        boardInteraction = true;
+    }
 
 
     void OnGUI()
@@ -111,40 +111,44 @@ public class BoardRoomChalkScript : MonoBehaviour
                 BoardWritingField.text += ",";
             if(e.type == EventType.KeyDown && e.keyCode == KeyCode.Backspace)
             {
-                BoardWritingField.text = BoardWritingField.text.Remove(BoardWritingField.text.Length - 1);     
+                BoardWritingField.text = BoardWritingField.text.Remove(BoardWritingField.text.Length - 1);
             }
             if(e.type == EventType.KeyDown && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.Escape))
             {
                 DisableInteraction();
-            }    
-        }     
+            }
+        }
     }
 
     void CheckLineLength()
-    {         
+    {
         if(BoardWritingField.text.Length % (sentence.Length + 1) == 0)
         {
-            Debug.Log(lines);       
+            Debug.Log(lines);
             BoardWritingField.text += "\n";
             lines++;
             if(lines == 11)
-                DisableInteraction();    
+                DisableInteraction();
         }
     }
 
     void CheckCorrection()
-    {                                                                                                             
+    {
         if(BoardWritingField.text == correctAnswer)
         {
             correction = 1;
             Debug.Log("Correct");
+            ControlLights.SendMessage("setOrangeActive");
         }
         else
         {
+            Debug.Log("Incorrect");
             correction = 2;
-            Debug.Log("Incorrect");                         
+            Debug.Log("Correct: \n" + correctAnswer);
+            Debug.Log("Your: \n" + BoardWritingField.text);
+            ControlLights.SendMessage("setBlueActive");
         }
-        
+
     }
 
     public void ActivateChalk()

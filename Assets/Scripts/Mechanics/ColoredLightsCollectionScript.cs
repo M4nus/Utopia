@@ -15,8 +15,9 @@ public class ColoredLightsCollectionScript : MonoBehaviour
     public bool clickedCorrectWithNRE = false;
     public bool clickedTheSameColor = false;
     public GameObject Elevator;
+    public GameObject ControlLights;
     public GameObject PopUpInformation;
-                              
+
     public void ClickedLight(int index) //This is called two times : first choose your color and shuffle ; second check if picked the same color and open elevator
     {
         if(colorIndex < 0) //first
@@ -37,12 +38,20 @@ public class ColoredLightsCollectionScript : MonoBehaviour
             {
                 clickedTheSameColor = true;
             }
+            if(clickedTheSameColor&& clickedCorrectWithNRE)
+            {
+                ControlLights.SendMessage("setOrangeActive");
+            }
+            else
+            {
+                ControlLights.SendMessage("setBlueActive");
+            }
             PopUpInformation.SetActive(false);
             Debug.Log("PLayer finished room " + "same-" + clickedTheSameColor + " correct-" + clickedCorrectWithNRE);
             Elevator.SendMessage("OpenElevator");
             AllowColorClickage = false;
         }
-        
+
     }
     public void ShuffleLightCollection()
     {
