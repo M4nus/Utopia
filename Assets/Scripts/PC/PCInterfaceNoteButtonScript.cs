@@ -25,19 +25,25 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
         _text.text = "Press any buttons...";
         if(room == 0)
         {
-            fullText = "Wprowadzenie chyba";
+            fullText = "... notes. To może coś napiszę. \nNie do końca wiem czego ode mnie chcą, \nmoże po prostu ich słuchać." 
+                     + "\n\nPS Nie ma tu żadnych roślin, \nbrakuje mi Archiwum Botaniki.";
         }
         if(room == 1)
         {
-            fullText = "Wciąż pamiętam ten dzień jak w szkole zostałem zrugany przy popełnieniu literówki. Nigdy więcej…";
+            fullText = "To miejsce jest przygnębiające. \nW klasie rośliny zawsze były zaniedbane \nprzez panie sprzątaczki, " +
+                       "\na ja nigdy nie mogłem się skupić przy tablicy. \nNotorycznie popełniałem " +
+                       "jakiś błąd pod tą presją. \nDobrze, że tutaj nikogo nie ma.";
         }
         if(room == 2)
         {
-            fullText = "Nigdy nie lubiłem pomarańczowego, zawsze był dla mnie jak odcień szarości.";
+            fullText = "Najbliższe są mi rośliny i ta ich piękna zieleń! \nChociaż nigdy " +
+                       "nie podobało się to mym wychowawcom. \nOni woleli pomarańczowy. ";
         }
         if(room == 3)
         {
-            fullText = "To chyba pokój ze sklepem";
+            fullText = "Obiad, w sumie to zgłodniałem. \nZazwyczaj jadam kaszę z fasolą, " +
+                       "\nale ten makaron z sosem pomidorowym wygląda bardzo kusząco. " +
+                       "\nMoże moja kochana Matylda mi taki \nprzygotuję jak coś zaoszczędze. ";
         }                                 
     }
 
@@ -49,6 +55,8 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
             {
                 ClearFirstText();
                 if(_firstLetter)
+                WriteText();
+                WriteText();
                 WriteText();
             }               
         }
@@ -92,7 +100,7 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
             index = _text.text.Length;
             _text.text += fullText[index];         
             index++;
-            CheckLineLength();                            
+            //CheckLineLength();                            
         }    
     }
 
@@ -103,7 +111,7 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
 
     void CheckLineLength()
     {
-        if(_text.text.Length % 49 == 0)
+        if(_text.text.Length % 50 == 0)
         {                       
             _text.text += "\n";
         }

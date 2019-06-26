@@ -9,16 +9,11 @@ public class ShopProductCollectionScript : MonoBehaviour
     public GameObject Antoni;
     public bool AllowProducktPickup = false;
     public GameObject Elevator;
+
     void Start()
     {
         ChoosenProducts = new List<int>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }                                        
 
     void PickProduct(int productIndex)
     {
