@@ -10,17 +10,11 @@ public class ShopProductScript : MonoBehaviour
     public Vector2 hotSpotHand = Vector2.zero;
     public int productIndex;
     public GameObject Antoni;
-    // Start is called before the first frame update
+
     void Start()
     {
         Antoni = transform.parent.GetComponent<ShopProductCollectionScript>().Antoni.gameObject;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }                         
 
     void OnMouseEnter()
     {

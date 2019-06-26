@@ -18,7 +18,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     public GameObject ControlLights;
     private int lines = 0;
     private bool isInteractable = false;
-    private bool boardInteraction = false;   
+    private bool boardInteraction = false;
     private string correctAnswer;
 
 
@@ -26,7 +26,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     {
         BoardWritingField = transform.GetChild(1).GetComponent<TextMesh>();
         sentence = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";
-        correctAnswer = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA";/* +
+        correctAnswer = "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA \n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
@@ -35,8 +35,9 @@ public class BoardRoomChalkScript : MonoBehaviour
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
                         "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
-                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";   */
-    }        
+                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n" +
+                        "BŁĄD, AKCEPTACJA, DEKLARACJA, ADAPTACJA, REFORMACJA\n";
+    }
 
     void OnMouseEnter()
     {
@@ -44,7 +45,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         {
             Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
         }
-        
+
     }
 
     void OnMouseExit()
@@ -59,7 +60,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
             StartCoroutine(MoveWriteOnBoard(this.transform.position.x));
-        }                        
+        }
     }
 
     IEnumerator MoveWriteOnBoard(float x)
@@ -74,8 +75,8 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.SendMessage("AllowPlayerToClick", false);
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", true);
         BoardWritingField.text = sentence + " ";
-        boardInteraction = true;    
-    }                                             
+        boardInteraction = true;
+    }
 
 
     void OnGUI()
@@ -110,30 +111,30 @@ public class BoardRoomChalkScript : MonoBehaviour
                 BoardWritingField.text += ",";
             if(e.type == EventType.KeyDown && e.keyCode == KeyCode.Backspace)
             {
-                BoardWritingField.text = BoardWritingField.text.Remove(BoardWritingField.text.Length - 1);     
+                BoardWritingField.text = BoardWritingField.text.Remove(BoardWritingField.text.Length - 1);
             }
             if(e.type == EventType.KeyDown && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.Escape))
             {
                 DisableInteraction();
-            }    
-        }     
+            }
+        }
     }
 
     void CheckLineLength()
-    {         
+    {
         if(BoardWritingField.text.Length % (sentence.Length + 1) == 0)
         {
-            Debug.Log(lines);       
+            Debug.Log(lines);
             BoardWritingField.text += "\n";
             lines++;
-            if(lines == 2)
-                DisableInteraction();    
+            if(lines == 11)
+                DisableInteraction();
         }
     }
 
     void CheckCorrection()
     {
-        if(string.Compare(BoardWritingField.text, correctAnswer) == 0)
+        if(BoardWritingField.text == correctAnswer)
         {
             correction = 1;
             Debug.Log("Correct");
@@ -142,11 +143,12 @@ public class BoardRoomChalkScript : MonoBehaviour
         else
         {
             Debug.Log("Incorrect");
+            correction = 2;
             Debug.Log("Correct: \n" + correctAnswer);
             Debug.Log("Your: \n" + BoardWritingField.text);
             ControlLights.SendMessage("setBlueActive");
         }
-        
+
     }
 
     public void ActivateChalk()

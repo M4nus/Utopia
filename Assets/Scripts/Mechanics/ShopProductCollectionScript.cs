@@ -15,12 +15,6 @@ public class ShopProductCollectionScript : MonoBehaviour
         ChoosenProducts = new List<int>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void PickProduct(int productIndex)
     {
         ChoosenProducts.Add(productIndex);
@@ -35,7 +29,7 @@ public class ShopProductCollectionScript : MonoBehaviour
             {
                 ControlLights.SendMessage("setBlueActive");
             }
-            
+
         }
     }
 }

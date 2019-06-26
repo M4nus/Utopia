@@ -23,20 +23,13 @@ public class ColoredLightScript : MonoBehaviour
         hotSpotHand = this.transform.parent.GetComponent<ColoredLightsCollectionScript>().hotSpotHand;
         ColorNumber = ((int)this.name.ToCharArray()[15] - 48) * 100 + ((int)this.name.ToCharArray()[16] - 48) * 10 + ((int)this.name.ToCharArray()[17] - 48); //Derive your index from your name
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+               
     void OnMouseEnter()
     {
         if (transform.parent.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage)
         {
             Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
-        }
-        
-       
+        }    
     }
 
     void OnMouseExit()
@@ -44,8 +37,7 @@ public class ColoredLightScript : MonoBehaviour
         if (transform.parent.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage)
         {
             Cursor.SetCursor(cursorTexturePointer, hotSpotPointer, cursorMode);
-        }
-
+        }    
     }
 
     void OnMouseDown()
