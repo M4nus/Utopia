@@ -147,6 +147,7 @@ public class BoardRoomChalkScript : MonoBehaviour
             Debug.Log("Correct: \n" + correctAnswer);
             Debug.Log("Your: \n" + BoardWritingField.text);
             ControlLights.SendMessage("setBlueActive");
+            GameObject.Find("GameSettings").GetComponent<GameSettingsScript>().BoardOrange = false;
         }
 
     }
