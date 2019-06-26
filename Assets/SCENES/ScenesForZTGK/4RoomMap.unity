@@ -20235,7 +20235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1131837275
 Transform:
   m_ObjectHideFlags: 0
@@ -21803,7 +21803,7 @@ MonoBehaviour:
   hotSpotPointer: {x: 0, y: 0}
   hotSpotHand: {x: 4, y: 0}
   Antoni: {fileID: 1527861154}
-  NextElevator: {fileID: 0}
+  NextElevator: {fileID: 191581783}
   ElevatorOpen: 0
 --- !u!61 &1218002935
 BoxCollider2D:
@@ -23514,7 +23514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1302043109
 MonoBehaviour:
   m_ObjectHideFlags: 0
