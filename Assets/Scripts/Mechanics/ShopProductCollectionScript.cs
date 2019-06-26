@@ -21,7 +21,9 @@ public class ShopProductCollectionScript : MonoBehaviour
         if (ChoosenProducts.Count == 3)
         {
             Debug.Log("All products choosen: " + ChoosenProducts[0] + " " + ChoosenProducts[1] + " " + ChoosenProducts[2]);
-            if(ChoosenProducts[0]==1&& ChoosenProducts[1] == 2 && ChoosenProducts[2] == 3)
+            if((ChoosenProducts[0]==0 || ChoosenProducts[0] == 11 || ChoosenProducts[0] == 18) &&
+               (ChoosenProducts[1] == 0 || ChoosenProducts[1] == 11 || ChoosenProducts[1] == 18) &&
+               (ChoosenProducts[2] == 0 || ChoosenProducts[2] == 11 || ChoosenProducts[2] == 18))
             {
                 ControlLights.SendMessage("setOrangeActive");
             }
