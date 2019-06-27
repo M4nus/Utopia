@@ -27,7 +27,7 @@ public class MovementController : MonoBehaviour
             isWalking = true;
         else
             isWalking = false;
-        Debug.Log("IsWalking: " + isWalking);
+        //Debug.Log("IsWalking: " + isWalking);
         rigidbody2D.velocity = Vector3.zero;
         if (MovementEnabled)
         {

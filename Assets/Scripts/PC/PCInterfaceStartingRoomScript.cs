@@ -54,7 +54,10 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true); //Set PCInterface to be visible and interactable
         ControlLights.SendMessage("setOrangeActive");
-        Elevator.SendMessage("OpenElevator");
+        if(Elevator.GetComponent<ElevatorEmptyRoomScript>().ElevatorOpen == false)
+        {
+            Elevator.SendMessage("OpenElevator");
+        }
         FindObjectOfType<AudioManager>().Play("elevatorOpen");
 
     }
