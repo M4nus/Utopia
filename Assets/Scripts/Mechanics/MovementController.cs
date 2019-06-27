@@ -12,8 +12,11 @@ public class MovementController : MonoBehaviour
     public bool AntoniArrivedAtNewFloor = false;
     public bool isWalking = false;
     Camera mainCamera;
+    bool stepSoundIsPlaying = false;
+    AudioManager AudioManagerScript;
     void Start()
     {
+        AudioManagerScript = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
         mainCamera = FindObjectOfType<Camera>();
         //_moveSpeed = 0f;
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -44,6 +47,18 @@ public class MovementController : MonoBehaviour
                 Move(_moveSpeed);
             }
         }
+        if ((_moveSpeed > 0.01f || _moveSpeed < -0.01f) && !stepSoundIsPlaying)
+        {
+            stepSoundIsPlaying = true;
+            StartCoroutine(PlayStepSound());
+        }
+    }
+
+    IEnumerator PlayStepSound()
+    {
+        AudioManagerScript.Play("step");
+        yield return new WaitForSeconds(0.35f);
+        stepSoundIsPlaying = false;
     }
 
     void Move(float moveSpeed)
@@ -63,7 +78,7 @@ public class MovementController : MonoBehaviour
 
     IEnumerator MoveToPosition(float x)
     {
-        StartCoroutine(WalkNoise());
+        
         MovementEnabled = false; //Disable movement when antoni is controlled by mouse
         AllowPlayerToClick(false);
         Debug.Log("Antoni tries to move to x=" + x);
@@ -77,7 +92,7 @@ public class MovementController : MonoBehaviour
         }
         while (Mathf.Abs(this.transform.position.x - x)>1)
         {
-            if(this.transform.position.x > x)
+            if (this.transform.position.x > x)
             {
                 animator.SetFloat("Speed", Mathf.Abs(-70));
                 Move(-70);
@@ -86,6 +101,11 @@ public class MovementController : MonoBehaviour
             {
                 animator.SetFloat("Speed", Mathf.Abs(70));
                 Move(70);
+            }
+            if (!stepSoundIsPlaying)
+            {
+                stepSoundIsPlaying = true;
+                StartCoroutine(PlayStepSound());
             }
             yield return null;
         }
