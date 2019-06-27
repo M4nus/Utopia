@@ -14,6 +14,7 @@ public class MovementController : MonoBehaviour
     Camera mainCamera;
     bool stepSoundIsPlaying = false;
     AudioManager AudioManagerScript;
+    bool PlayStepSounds = false;
     void Start()
     {
         AudioManagerScript = FindObjectOfType<AudioManager>().GetComponent<AudioManager>();
@@ -49,8 +50,11 @@ public class MovementController : MonoBehaviour
         }
         if ((_moveSpeed > 0.01f || _moveSpeed < -0.01f) && !stepSoundIsPlaying)
         {
-            stepSoundIsPlaying = true;
-            StartCoroutine(PlayStepSound());
+            if (isWalking)
+            {
+                stepSoundIsPlaying = true;
+                StartCoroutine(PlayStepSound());
+            }
         }
     }
 
@@ -106,6 +110,7 @@ public class MovementController : MonoBehaviour
             {
                 stepSoundIsPlaying = true;
                 StartCoroutine(PlayStepSound());
+                
             }
             yield return null;
         }

@@ -51,10 +51,14 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
 
     public IEnumerator OpenElevator() 
     {
-        animatior.SetTrigger("OpenElevator");
-        FindObjectOfType<AudioManager>().Play("elevatorOpen");
-        yield return new WaitForSeconds(1.0f);
-        ElevatorOpen = true;
+        if (ElevatorOpen == false)
+        {
+            animatior.SetTrigger("OpenElevator");
+            FindObjectOfType<AudioManager>().Play("elevatorOpen");
+            yield return new WaitForSeconds(1.0f);
+            ElevatorOpen = true;
+        }
+        
     }
 
     IEnumerator GoIntoElevator(float x)

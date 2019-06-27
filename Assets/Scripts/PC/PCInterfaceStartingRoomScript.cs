@@ -58,7 +58,7 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
         {
             Elevator.SendMessage("OpenElevator");
         }
-        FindObjectOfType<AudioManager>().Play("elevatorOpen");
+        //FindObjectOfType<AudioManager>().Play("elevatorOpen");
 
     }
 
