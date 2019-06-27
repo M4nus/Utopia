@@ -18,7 +18,7 @@ public class ShopProductCollectionScript : MonoBehaviour
     void PickProduct(int productIndex)
     {
         ChoosenProducts.Add(productIndex);
-        FindObjectOfType<AudioManager>().Play("itemTake");
+        //FindObjectOfType<AudioManager>().Play("itemTake");
         if (ChoosenProducts.Count == 3)
         {
             Debug.Log("All products choosen: " + ChoosenProducts[0] + " " + ChoosenProducts[1] + " " + ChoosenProducts[2]);

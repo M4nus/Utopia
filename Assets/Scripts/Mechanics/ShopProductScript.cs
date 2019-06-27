@@ -47,6 +47,7 @@ public class ShopProductScript : MonoBehaviour
         {
             yield return null;
         }
+        FindObjectOfType<AudioManager>().Play("itemTake");
         if (this.transform.parent.GetComponent<ShopProductCollectionScript>().ChoosenProducts.Count == 3)
         {
             this.transform.parent.GetComponent<ShopProductCollectionScript>().Elevator.GetComponent<ElevatorEmptyRoomScript>().SendMessage("OpenElevator");
