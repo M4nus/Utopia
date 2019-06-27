@@ -29,6 +29,6 @@ public class EndBlueScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("PlayerHasRestartedTheGame");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

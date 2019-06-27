@@ -118,7 +118,6 @@ public class BoardRoomChalkScript : MonoBehaviour
             {
                 DisableInteraction();
             }
-            FindObjectOfType<AudioManager>().Play("click1");
         }
     }
 
@@ -126,10 +125,12 @@ public class BoardRoomChalkScript : MonoBehaviour
     {
         if(BoardWritingField.text.Length % (sentence.Length + 1) == 0)
         {
+
             Debug.Log(lines);
             BoardWritingField.text += "\n";
             lines++;
-            if(lines == 11)
+            FindObjectOfType<AudioManager>().Play("click1");
+            if (lines == 11)
                 DisableInteraction();
         }
     }

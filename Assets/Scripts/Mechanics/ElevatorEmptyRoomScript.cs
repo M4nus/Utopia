@@ -78,10 +78,14 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         yield return new WaitForSeconds(3.0f);  //Wait till elevator closes
 
         mainCamera.GetComponent<MainCameraScript>().MoveCameraAndAntoniBy(new Vector3(0, 174, 0)); //Start moving camera to next floor
+
         if (ElevatorNumber == 3)
         {
             GameObject.Find("GameSettings").SendMessage("GoToEndScreen"); //If it's the last room Go to end Screen
         }
+        Debug.Log("Play elevator noise");
+        FindObjectOfType<AudioManager>().Play("elevatorNoise"); //Play Elevator noise when camera starts moving but not when it's the last room
+        
         
         if (NextElevator==null)
         {
@@ -97,7 +101,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         if (NextElevator != null)
         {
             NextElevator.SendMessage("AntoniArrived"); //Tell next elevator to close 
-            FindObjectOfType<AudioManager>().Play("elevatorClose");
+            //FindObjectOfType<AudioManager>().Play("elevatorClose");
             NextElevator.GetComponent<ElevatorEmptyRoomScript>().ElevatorNumber = ElevatorNumber + 1;
         }
         
