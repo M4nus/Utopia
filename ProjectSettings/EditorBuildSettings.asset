@@ -74,4 +74,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SCENES/ScenesForZTGK/EndOrange.unity
     guid: 17824c942e9d23b4b82ac95e9c08d9ae
+  - enabled: 1
+    path: Assets/SCENES/ScenesForZTGK/Credits.unity
+    guid: 5f9bfe337a1ba1849bc55545ea7b6906
   m_configObjects: {}

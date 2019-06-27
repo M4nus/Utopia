@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class EndOrangeScript : MonoBehaviour
+public class Credits : MonoBehaviour
 {
     public Texture2D cursorTextureHand;
     public CursorMode cursorMode = CursorMode.Auto;
@@ -25,11 +24,11 @@ public class EndOrangeScript : MonoBehaviour
         Cursor.SetCursor(cursorTextureHand, hotSpotHand, cursorMode);
     }
 
-  
+
 
     void OnMouseDown()
     {
-        Debug.Log("PlayerHasRestartedTheGame");
-        SceneManager.LoadScene(6);
+        Debug.Log("PlayerHasQuitTheGame");
+        Application.Quit();
     }
 }
