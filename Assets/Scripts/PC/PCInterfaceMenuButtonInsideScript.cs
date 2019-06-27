@@ -35,6 +35,7 @@ public class PCInterfaceMenuButtonInsideScript : MonoBehaviour
     {
 
         Debug.Log("MenuButton got clicked off! :C");
+        FindObjectOfType<AudioManager>().Play("click2");
         this.transform.parent.gameObject.SetActive(false);
     }
 }

@@ -37,6 +37,7 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("PCTerminal got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click1");
         StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
     }
 
@@ -49,6 +50,7 @@ public class PCInterfaceCororRoomScript : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
+        FindObjectOfType<AudioManager>().Play("computerStart");
         yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         ColoredLightsCollecion.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage = true;

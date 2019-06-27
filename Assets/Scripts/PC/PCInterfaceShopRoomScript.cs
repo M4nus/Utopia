@@ -50,6 +50,7 @@ public class PCInterfaceShopRoomScript : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
+        FindObjectOfType<AudioManager>().Play("computerStart");
         yield return new WaitForSeconds(0.4f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }

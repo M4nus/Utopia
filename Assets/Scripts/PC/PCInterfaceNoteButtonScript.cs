@@ -81,7 +81,7 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
 
     void OnMouseDown()
     {
-
+        FindObjectOfType<AudioManager>().Play("click2");    
         Debug.Log("NoteButton got clicked on! :D");
         this.transform.GetChild(0).gameObject.SetActive(true);
         canWrite = true;

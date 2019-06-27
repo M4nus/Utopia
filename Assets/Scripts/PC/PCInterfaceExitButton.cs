@@ -34,6 +34,7 @@ public class PCInterfaceExitButton : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("ExitButton got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click2");            
         Debug.Log(transform.parent.parent.name);
         transform.parent.parent.SendMessage("AllowPlayerToMove", true);
         this.transform.parent.gameObject.SetActive(false);

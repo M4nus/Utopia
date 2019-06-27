@@ -50,6 +50,7 @@ public class ColoredLightsCollectionScript : MonoBehaviour
             PopUpInformation.SetActive(false);
             Debug.Log("PLayer finished room " + "same-" + clickedTheSameColor + " correct-" + clickedCorrectWithNRE);
             Elevator.SendMessage("OpenElevator");
+            FindObjectOfType<AudioManager>().Play("elevatorOpen");
             AllowColorClickage = false;
         }
 

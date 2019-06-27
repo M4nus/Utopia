@@ -35,6 +35,7 @@ public class PCInterfaceNoteButtonInside : MonoBehaviour
     {
 
         Debug.Log("NoteButton got clicked off! :C");
+        FindObjectOfType<AudioManager>().Play("click2");
         this.transform.parent.gameObject.SetActive(false);
     }
 }

@@ -37,6 +37,7 @@ public class PCInterfaceExitFromGameButtonScript : MonoBehaviour
     void OnMouseDown()
     {
         ToogleButton();
+        FindObjectOfType<AudioManager>().Play("click1");
     }
 
     void ToogleButton()

@@ -38,8 +38,7 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("PCTerminal got clicked on! :D");
-        StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
-
+        StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));         
     }
 
 
@@ -51,10 +50,12 @@ public class PCInterfaceStartingRoomScript : MonoBehaviour
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
+        FindObjectOfType<AudioManager>().Play("computerStart");
         yield return new WaitForSeconds(1.0f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true); //Set PCInterface to be visible and interactable
         ControlLights.SendMessage("setOrangeActive");
         Elevator.SendMessage("OpenElevator");
+        FindObjectOfType<AudioManager>().Play("elevatorOpen");
 
     }
 

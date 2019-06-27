@@ -34,6 +34,7 @@ public class PCInterfaceMenuButtonScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("ExitButton got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click2");
         this.transform.GetChild(0).transform.gameObject.SetActive(true);
         Cursor.SetCursor(cursorTexturePointer, hotSpotPointer, cursorMode);
     }

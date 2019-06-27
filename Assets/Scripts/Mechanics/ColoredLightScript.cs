@@ -45,7 +45,8 @@ public class ColoredLightScript : MonoBehaviour
         if (transform.parent.GetComponent<ColoredLightsCollectionScript>().AllowColorClickage)
         {
             Debug.Log("Color" + ColorNumber + " got clicked on! :D");
-            this.transform.parent.SendMessage("ClickedLight", ColorNumber); //Tell collection that you were clicked
+            this.transform.parent.SendMessage("ClickedLight", ColorNumber); //Tell collection that you were clicked   
+            FindObjectOfType<AudioManager>().Play("click1");
         }
     }
 

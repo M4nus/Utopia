@@ -31,6 +31,7 @@ public class MainCameraScript : MonoBehaviour
     {
         while(targetCameraPosition.y > transform.position.y + 0.1)
         {
+            FindObjectOfType<AudioManager>().Play("elevatorNoise");
             transform.position = Vector3.SmoothDamp(transform.position, targetCameraPosition, ref smoothDampVelocity, 0.5f, 20.0f);
             yield return null;
         }

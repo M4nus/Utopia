@@ -56,6 +56,7 @@ public class BoardRoomChalkScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Chalk got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click1");
         if(isInteractable)
         {
             this.transform.GetChild(0).gameObject.SetActive(false);
@@ -117,6 +118,7 @@ public class BoardRoomChalkScript : MonoBehaviour
             {
                 DisableInteraction();
             }
+            FindObjectOfType<AudioManager>().Play("click1");
         }
     }
 
@@ -168,6 +170,7 @@ public class BoardRoomChalkScript : MonoBehaviour
         Antoni.transform.GetComponent<Animator>().SetBool("IsWritingOnBoard", false);
         Antoni.SendMessage("AllowPlayerToMove", true);
         Elevator.SendMessage("OpenElevator");
+        FindObjectOfType<AudioManager>().Play("elevatorOpen");
         CheckCorrection();
     }
 

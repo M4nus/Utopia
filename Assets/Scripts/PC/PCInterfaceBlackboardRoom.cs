@@ -38,18 +38,20 @@ public class PCInterfaceBlackboardRoom : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("PCTerminal got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click1");
         StartCoroutine(MoveToPCInterface(this.transform.position.x - 8.0f));
     }
 
 
     IEnumerator MoveToPCInterface(float x)
     {
-        Antoni.SendMessage("MoveToPosition", x);
+        Antoni.SendMessage("MoveToPosition", x);  
         while (Antoni.transform.position.x != x)
         {
             yield return null;
         }
         Debug.Log("Antoni arrived at PCInterface");
+        FindObjectOfType<AudioManager>().Play("computerStart");
         yield return new WaitForSeconds(0.4f);
         if (alreadyDone == false)
         {

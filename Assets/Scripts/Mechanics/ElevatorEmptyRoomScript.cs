@@ -52,6 +52,7 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
     public IEnumerator OpenElevator() 
     {
         animatior.SetTrigger("OpenElevator");
+        FindObjectOfType<AudioManager>().Play("elevatorOpen");
         yield return new WaitForSeconds(1.0f);
         ElevatorOpen = true;
     }
@@ -71,7 +72,8 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move elevator door in front of Antoni
 
-        animatior.SetTrigger("CloseElevator"); //Start closing the elevator
+        animatior.SetTrigger("CloseElevator"); //Start closing the elevator 
+        FindObjectOfType<AudioManager>().Play("elevatorClose");
 
         yield return new WaitForSeconds(3.0f);  //Wait till elevator closes
 
@@ -94,7 +96,8 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
         Antoni.transform.position = new Vector3(Antoni.transform.position.x, Antoni.transform.position.y + 174, Antoni.transform.position.z); //Move Antoni to next floor
         if (NextElevator != null)
         {
-            NextElevator.SendMessage("AntoniArrived"); //Tell next elevator to close
+            NextElevator.SendMessage("AntoniArrived"); //Tell next elevator to close 
+            FindObjectOfType<AudioManager>().Play("elevatorClose");
             NextElevator.GetComponent<ElevatorEmptyRoomScript>().ElevatorNumber = ElevatorNumber + 1;
         }
         
@@ -105,14 +108,18 @@ public class ElevatorEmptyRoomScript : MonoBehaviour
     IEnumerator AntoniArrived()
     {
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 0.002f); //Move door in front of antoni
-        animatior.SetTrigger("OpenElevator"); //Start opening the elevator
+        animatior.SetTrigger("OpenElevator"); //Start opening the elevator     
+        FindObjectOfType<AudioManager>().Play("elevatorDing");
+        yield return new WaitForSeconds(0.1f);
+        FindObjectOfType<AudioManager>().Play("elevatorOpen");
         yield return new WaitForSeconds(1.5f); //Wait for elevator to open
         Antoni.GetComponent<MovementController>().MovementEnabled = true;
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 0.002f); //Move elevator door behind Antoni
         Debug.Log("Let Antoni walk freely"); //Allow Player to move antoni
         mainCamera.transform.GetChild(0).transform.gameObject.SetActive(false); //Allow player to click again
         yield return new WaitForSeconds(1.5f); //
-        animatior.SetTrigger("CloseElevator"); //Close Elebator door after short delay
+        animatior.SetTrigger("CloseElevator"); //Close Elebator door after short delay  
+        FindObjectOfType<AudioManager>().Play("elevatorClose");
     }
 
 

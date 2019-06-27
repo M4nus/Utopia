@@ -34,6 +34,7 @@ public class PCInterfaceMenuBackButtonScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("BackButton got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click2");
         this.transform.parent.parent.transform.gameObject.SetActive(false);
         Cursor.SetCursor(cursorTexturePointer, hotSpotPointer, cursorMode);
     }

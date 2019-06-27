@@ -38,6 +38,7 @@ public class PCInterfaceExitYesButtonScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Exit GAME YES got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click2");
         Application.Quit();
     }
 }

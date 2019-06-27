@@ -38,6 +38,7 @@ public class PCInterfaceExitNoButtonScript : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Exit GAME NO got clicked on! :D");
+        FindObjectOfType<AudioManager>().Play("click2");
         this.transform.parent.GetComponent<SpriteRenderer>().sprite = notClickedButtonSprite;
         this.transform.parent.parent.parent.parent.transform.GetComponent<PCInterfaceExitFromGameButtonScript>().SendMessage("ToogleButton");
         
