@@ -12,27 +12,24 @@ public class GameSettingsScript : MonoBehaviour
     public bool BoardOrange = true;
     public bool ShopOrange = true;
     public bool ColorOrange = true;
+    public SpriteRenderer sprite;
 
 
     void Start()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        sprite.GetComponent<SpriteRenderer>();
+    }       
 
     IEnumerator GoToEndScreen()
     {
         Debug.Log("StartPhaseOut");
-        yield return new WaitForSeconds(5.0f);
+        yield return StartCoroutine(FadeIn());
+        yield return new WaitForSeconds(3.0f);
         if (ShopOrange && BoardOrange && ColorOrange)
         {
             Debug.Log("Load Scene End Orange");
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene("EndOrange");
         }
         else
         {
@@ -45,19 +42,19 @@ public class GameSettingsScript : MonoBehaviour
                 {
                     stopLoop = true;
                     Debug.Log("Load Scene End Blue Color");
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene("EndBlueColor");
                 }
                 else if (pomSceneChoice == 2 && !ShopOrange)
                 {
                     stopLoop = true;
                     Debug.Log("Load Scene End Blue Shop");
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene("EndBlueShop");
                 }
                 else if (pomSceneChoice == 3 && !BoardOrange)
                 {
                     stopLoop = true;
                     Debug.Log("Load Scene End Blue Board");
-                    SceneManager.LoadScene(3);
+                    SceneManager.LoadScene("EndBlueBoard");
                 }
                 else
                 {
@@ -66,14 +63,20 @@ public class GameSettingsScript : MonoBehaviour
                 if (i == 100)
                 {
                     Debug.Log("100 tries later");
-                }
-
-
+                }           
             }
-        }
-        
+        }     
+    }
 
+    public IEnumerator FadeIn()
+    {
+        float currentAlpha = sprite.color.a;
 
-
+        while(currentAlpha < 1f)
+        {
+            currentAlpha += Time.deltaTime;
+            sprite.color = new Color(0, 0, 0, currentAlpha);
+            yield return null;
+        }                       
     }
 }
