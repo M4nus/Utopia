@@ -21,6 +21,7 @@ public class UiManager : MonoBehaviour
     IEnumerator Queue()
     {
         Debug.Log(_intro);
+        yield return WaitForButton();
         yield return StartCoroutine(FadeOut());
         yield return new WaitForSeconds(30f);
         yield return StartCoroutine(FadeIn());
@@ -57,5 +58,13 @@ public class UiManager : MonoBehaviour
     {
         SceneManager.LoadScene("4RoomMap");
         yield return null;
+    }
+
+    IEnumerator WaitForButton()
+    {
+        while(!Input.anyKey)
+        {
+            yield return null;
+        }
     }
 }

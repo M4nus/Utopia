@@ -57,7 +57,7 @@ public class PCInterfaceNoteButtonScript : MonoBehaviour
                 if(_firstLetter)
                 WriteText();
                 WriteText();
-                WriteText();
+                WriteText();                       
             }               
         }
     }
